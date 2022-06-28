@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { Route, Routes,useNavigate,useParams } from "react-router"
 import { ThemeProvider, createTheme } from '@mui/material/styles';
+import CssBaseline from '@mui/material/CssBaseline';
 import Home from "./Home";
 import Count from "./Count";
 import Login from "./Login";
@@ -34,6 +35,7 @@ function App() {
 
   return (
     <ThemeProvider theme={darkTheme}>
+      <CssBaseline />
     {/* <div className="App"> */}
       <Header />
       <Routes>

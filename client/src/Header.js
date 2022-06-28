@@ -189,6 +189,10 @@ const Header = () => {
                 <Button key="checkout" href='/checkout' onClick={handleCloseUserMenu}>
                   <Typography textAlign="center">checkout</Typography>
                 </Button>
+
+                <Button key="logout" href='/logout' onClick={handleCloseUserMenu}>
+                  <Typography textAlign="center">logout</Typography>
+                </Button>
               {/* ))} */}
             </Menu>
           </Box>
