@@ -6,6 +6,7 @@ function BikeList() {
     
 
   return (
+    
     <div className="BikeList">
       {array.map(e=>{return(<BikeCard />)})}
     </div>

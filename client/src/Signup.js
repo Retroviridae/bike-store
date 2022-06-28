@@ -34,6 +34,8 @@ function SignUp() {
     console.log({
       email: data.get('email'),
       password: data.get('password'),
+      firstName: data.get('firstName'),
+      lastname: data.get('lastName'),
     });
   };
 

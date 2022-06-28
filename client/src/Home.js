@@ -1,14 +1,27 @@
-import Checkout from "./Checkout";
+import { useSelector, useDispatch } from 'react-redux'
+import { decrement, increment } from './features/counter/counterSlice'
 
 function Home() {
+  const count = useSelector((state) => state.counter.value)
+  const dispatch = useDispatch()
 
   return (
-    <div className="Home">
-      <h1>Home</h1>
-      {/* <AddressForm />
-      <PaymentForm />
-      <Review /> */}
-      {/* <Checkout /> */}
+    <div>
+      <div>
+        <button
+          aria-label="Increment value"
+          onClick={() => dispatch(increment())}
+        >
+          Increment
+        </button>
+        <span>{count}</span>
+        <button
+          aria-label="Decrement value"
+          onClick={() => dispatch(decrement())}
+        >
+          Decrement
+        </button>
+      </div>
     </div>
   );
 }

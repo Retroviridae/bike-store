@@ -58,7 +58,8 @@ function Checkout() {
   };
 
   return (
-    <ThemeProvider theme={theme}>
+    // <ThemeProvider theme={theme}>
+    <div>
       {/* <CssBaseline /> */}
       <AppBar
         position="absolute"
@@ -121,9 +122,10 @@ function Checkout() {
             )}
           </React.Fragment>
         </Paper>
-        <Copyright />
+        {/* <Copyright /> */}
       </Container>
-    </ThemeProvider>
+      </div>
+    // </ThemeProvider>
   );
 }
 
