@@ -37,7 +37,22 @@ function SignUp() {
       firstName: data.get('firstName'),
       lastname: data.get('lastName'),
     });
+    fetch("/users", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({username:data.get('username'), password:data.get('password')}),
+    }).then((r) => {
+      // setIsLoading(false);
+      if (r.ok) {
+        r.json().then(data => console.log(data));
+      } else {
+        r.json().then(data => console.log(data));
+      }
+    });;
   };
+
 
   return (
     <ThemeProvider theme={theme}>
@@ -84,9 +99,19 @@ function SignUp() {
                   required
                   fullWidth
                   id="email"
-                  label="Email Address"
+                  label="email"
                   name="email"
                   autoComplete="email"
+                />
+              </Grid>
+              <Grid item xs={12}>
+                <TextField
+                  required
+                  fullWidth
+                  id="username"
+                  label="username"
+                  name="username"
+                  autoComplete="username"
                 />
               </Grid>
               <Grid item xs={12}>

@@ -11,6 +11,8 @@ import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
+import { useSelector, useDispatch } from 'react-redux';
+import { update } from './reduxComponents/me/meSlice'
 
 function Copyright(props) {
   return (
@@ -28,14 +30,50 @@ function Copyright(props) {
 const theme = createTheme();
 
 function Login() {
+  const me = useSelector((state) => state.me.value)
+  const dispatch = useDispatch()
   const handleSubmit = (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
-    console.log({
-      email: data.get('email'),
-      password: data.get('password'),
-    });
+    // console.log({
+    //   username: data.get('username'),
+    //   password: data.get('password'),
+    // })
+    fetch("/login", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({username:data.get('username'), password:data.get('password')}),
+    }).then((r) => {
+      // setIsLoading(false);
+      if (r.ok) {
+        r.json().then(data => dispatch(update({id:data.id,username:data.username})));
+      } else {
+        r.json().then(data => console.log(data));
+      }
+    });;
   };
+// }
+
+  // function handleSubmit(e) {
+  //   e.preventDefault();
+  //   setIsLoading(true);
+  //   fetch("/login", {
+  //     method: "POST",
+  //     headers: {
+  //       "Content-Type": "application/json",
+  //     },
+  //     body: JSON.stringify({ username, password }),
+  //   }).then((r) => {
+  //     setIsLoading(false);
+  //     if (r.ok) {
+  //       r.json().then((user) => onLogin(user));
+  //     } else {
+  //       r.json().then((err) => setErrors(err.errors));
+  //     }
+  //   });
+  // }
 
   return (
     <div>
@@ -61,10 +99,10 @@ function Login() {
               margin="normal"
               required
               fullWidth
-              id="email"
-              label="Email Address"
-              name="email"
-              autoComplete="email"
+              id="username"
+              label="Username"
+              name="username"
+              autoComplete="username"
               autoFocus
             />
             <TextField

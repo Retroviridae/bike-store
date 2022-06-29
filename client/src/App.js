@@ -2,13 +2,15 @@ import { useState, useEffect } from "react";
 import { Route, Routes,useNavigate,useParams } from "react-router"
 import { ThemeProvider, createTheme } from '@mui/material/styles';
 import CssBaseline from '@mui/material/CssBaseline';
+import { useSelector, useDispatch } from 'react-redux'
+import { update } from './reduxComponents/me/meSlice'
 import Home from "./Home";
-import Count from "./Count";
 import Login from "./Login";
 import Signup from "./Signup";
 import Header from "./Header";
-import BikeList from "./BikeList";
-import Checkout from "./Checkout";
+import BikeList from "./bikeList/BikeList";
+import Checkout from "./checkout/Checkout";
+import Profile from "./Profile";
 
 const darkTheme = createTheme({
   palette: {
@@ -18,14 +20,20 @@ const darkTheme = createTheme({
 
 
 function App() {
-  const [count, setCount] = useState(0);
+  const me = useSelector((state) => state.me.value)
+  const dispatch = useDispatch()
   
-
   useEffect(() => {
-    fetch("/hello")
-      .then((r) => r.json())
-      .then((data) => setCount(data.count));
+    fetch("/me").then((r) => {
+      if (r.ok) {
+        r.json().then((user) => dispatch(update({id:user.id,username:user.username})));
+      }else {
+        dispatch(update({}))
+      }
+    });
   }, []);
+  
+  
   // if (user) return (
   // <logout />
   // < Other components for logged in users />
@@ -40,9 +48,9 @@ function App() {
       <Header />
       <Routes>
         <Route path="/" element={<Home />} />
-        <Route path="/count" element={<Count count={count} />} />
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<Signup />} />
+        <Route path="/profile" element={<Profile />} />
         <Route path="/bikes" element={<BikeList />} />
         <Route path="/checkout" element={<Checkout />} />
         

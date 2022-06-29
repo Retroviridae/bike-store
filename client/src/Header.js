@@ -12,11 +12,17 @@ import Button from '@mui/material/Button';
 import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
 // import AdbIcon from '@mui/icons-material/Adb';
+import { useSelector, useDispatch } from 'react-redux';
+import { update } from './reduxComponents/me/meSlice'
 
-const pages = ['Count', 'Bikes', 'Signup', 'Login'];
+
+const pages = ['Bikes', 'Signup', 'Login'];
 const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
 
 const Header = () => {
+  const me = useSelector((state) => state.me.value)
+  const dispatch = useDispatch()
+
   const [anchorElNav, setAnchorElNav] = React.useState(null);
   const [anchorElUser, setAnchorElUser] = React.useState(null);
 
@@ -33,6 +39,14 @@ const Header = () => {
 
   const handleCloseUserMenu = () => {
     setAnchorElUser(null);
+  };
+
+  const handleLogout = () => {
+    fetch("/logout", { method: "DELETE" }).then((r) => {
+      if (r.ok) {
+        dispatch(update({}))
+      }
+    });
   };
 
   return (
@@ -123,24 +137,29 @@ const Header = () => {
               >
                 bikes
               </Button>
-
-              <Button
-                key='count'
+              {me.id?<Button
+                key='profile'
                 onClick={handleCloseNavMenu}
-                href='/count'
+                href='/profile'
                 sx={{ my: 2, color: 'white', display: 'block' }}
               >
-                count
-              </Button>
-
-              <Button
+                profile
+              </Button>:<Button
                 key='login'
                 onClick={handleCloseNavMenu}
                 href='/login'
                 sx={{ my: 2, color: 'white', display: 'block' }}
               >
                 login
-              </Button>
+              </Button>}
+              {/* <Button
+                key='login'
+                onClick={handleCloseNavMenu}
+                href='/login'
+                sx={{ my: 2, color: 'white', display: 'block' }}
+              >
+                login
+              </Button> */}
               
               {/* {true?
               <Button
@@ -185,15 +204,37 @@ const Header = () => {
               open={Boolean(anchorElUser)}
               onClose={handleCloseUserMenu}
             >
-              {/* {settings.map((setting) => ( */}
+              {me.id?
+                <div>
+                <Button key="profile" href='/profile' onClick={handleCloseUserMenu}>
+                  <Typography textAlign="center">profile</Typography>
+                </Button>
+
                 <Button key="checkout" href='/checkout' onClick={handleCloseUserMenu}>
                   <Typography textAlign="center">checkout</Typography>
                 </Button>
 
-                <Button key="logout" href='/logout' onClick={handleCloseUserMenu}>
+                <Button key="logout" onClick={handleLogout}>
                   <Typography textAlign="center">logout</Typography>
                 </Button>
-              {/* ))} */}
+
+              </div>
+              :
+              <Button key="login" href='/login' onClick={handleCloseUserMenu}>
+              <Typography textAlign="center">login</Typography>
+            </Button>
+
+              }
+              {/* <Button key="profile" href='/profile' onClick={handleCloseUserMenu}>
+                  <Typography textAlign="center">profile</Typography>
+                </Button>
+                <Button key="checkout" href='/checkout' onClick={handleCloseUserMenu}>
+                  <Typography textAlign="center">checkout</Typography>
+                </Button>
+
+                <Button key="logout" onClick={handleLogout}>
+                  <Typography textAlign="center">logout</Typography>
+                </Button> */}
             </Menu>
           </Box>
         </Toolbar>
