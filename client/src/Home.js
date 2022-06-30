@@ -7,6 +7,11 @@ function Home() {
   const count = useSelector((state) => state.counter.value)
   const bikes = useSelector((state) => state.bikes.value)
   const dispatch = useDispatch()
+  
+  const dbReset = ()=>{
+    fetch('/reset')
+    .then(resp=> resp.json())
+    .then(data => console.log(data))}
 
   return (
     <div>
@@ -57,6 +62,7 @@ function Home() {
         </button>
 
       </div>
+      <button onClick={dbReset} variant="danger">Reset Database</button>
     </div>
   );
 }
