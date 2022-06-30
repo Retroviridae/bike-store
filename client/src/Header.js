@@ -135,7 +135,7 @@ const Header = () => {
               <Button
                 key='bikes'
                 onClick={handleCloseNavMenu}
-                href='/bikes'
+                href='/bikelist'
                 sx={{ my: 2, color: 'white', display: 'block' }}
               >
                 bikes
