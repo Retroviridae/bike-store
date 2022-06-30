@@ -9,8 +9,12 @@ import Collapse from '@mui/material/Collapse';
 import Avatar from '@mui/material/Avatar';
 import IconButton from '@mui/material/IconButton';
 import Typography from '@mui/material/Typography';
+import Link from '@mui/material/Link';
 import { red } from '@mui/material/colors';
 import Button from '@mui/material/Button';
+import { useSelector, useDispatch } from 'react-redux'
+import bikesSlice, { createBike,deleteBike,updateBike } from '../reduxComponents/bikes/bikesSlice'
+
 // import FavoriteIcon from '@mui/icons-material/Favorite';
 // import ShareIcon from '@mui/icons-material/Share';
 // import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
@@ -27,12 +31,16 @@ const ExpandMore = styled((props) => {
   }),
 }));
 
-function BikeCard() {
+function BikeCard( {index} ) {
+  const bikes = useSelector((state) => state.bikes.value)
+  const dispatch = useDispatch()
   const [expanded, setExpanded] = React.useState(false);
 
   const handleExpandClick = () => {
     setExpanded(!expanded);
   };
+  // console.log(Math.floor(Math.random() * 100)*100)
+  
 
   return (
     <Card sx={{ maxWidth: 345 }}>
@@ -47,24 +55,20 @@ function BikeCard() {
             {/* <MoreVertIcon /> */}
           </IconButton>
         }
-        title="Specialized Stumpjumper"
-        subheader="Price: $2000"
+        title={bikes[index].model}
+        subheader={bikes[index].maker}
       />
       <CardMedia
         component="img"
         height="194"
-        image="https://upload.wikimedia.org/wikipedia/commons/thumb/4/44/P1080421_resize.JPG/220px-P1080421_resize.JPG"
+        image={bikes[index].img}
         alt="Paella dish"
       />
       <CardContent>
         <Typography variant="body2" color="text.secondary">
-        Combining the lightweight efficient DNA of the Epic EVO with the benchmark handling and capability of the new Stumpjumper EVO,
-         the new Stumpjumper is the ultimate singletrack flow finder.
-          It climbs and accelerates like it has a motor, descends with authority,
-           and flat out tears through every conceivable trail condition. There’s never been an all-round trail bike this light, 
-           this efficient, this capable.
+        {"$"+bikes[index].price}
         </Typography>
-        <Button onClick={handleExpandClick}> Expand</Button>
+        <Button onClick={handleExpandClick}> Show more</Button>
       </CardContent>
       <CardActions disableSpacing>
         <IconButton aria-label="add to favorites">
@@ -84,19 +88,12 @@ function BikeCard() {
       </CardActions>
       <Collapse in={expanded} timeout="auto" unmountOnExit>
         <CardContent>
-          <Typography paragraph>Paragraph Header:</Typography>
-          <Typography paragraph>
-            This is an area for expanded stuff
-          </Typography>
-          <Typography paragraph>
-            A paragraph area for more info
-          </Typography>
-          <Typography paragraph>
-            Another paragraph
-          </Typography>
-          <Typography>
-            Maybe click here to buy of something if I keep the expanded
-          </Typography>
+          <Typography paragraph></Typography>
+          <Link href={bikes[index].url}>Click Here for more info about the {bikes[index].model}</Link>
+          <Typography paragraph></Typography>
+          <Link>Add to cart</Link>
+          <Typography></Typography>
+          <Link>Add to favorites</Link>
         </CardContent>
       </Collapse>
     </Card>

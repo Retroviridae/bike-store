@@ -14,6 +14,7 @@ import MenuItem from '@mui/material/MenuItem';
 // import AdbIcon from '@mui/icons-material/Adb';
 import { useSelector, useDispatch } from 'react-redux';
 import { update } from './reduxComponents/me/meSlice'
+import { useNavigate } from "react-router"
 
 
 const pages = ['Bikes', 'Signup', 'Login'];
@@ -22,6 +23,7 @@ const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
 const Header = () => {
   const me = useSelector((state) => state.me.value)
   const dispatch = useDispatch()
+  let navigate= useNavigate();
 
   const [anchorElNav, setAnchorElNav] = React.useState(null);
   const [anchorElUser, setAnchorElUser] = React.useState(null);
@@ -45,6 +47,7 @@ const Header = () => {
     fetch("/logout", { method: "DELETE" }).then((r) => {
       if (r.ok) {
         dispatch(update({}))
+        navigate('/')
       }
     });
   };

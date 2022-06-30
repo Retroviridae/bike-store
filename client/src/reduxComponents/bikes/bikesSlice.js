@@ -17,7 +17,7 @@ export const bikesSlice = createSlice({
       state.value = state.value.slice(0,(state.value.length-1))
     },
     updateBike: (state, action) => {
-      state.value = state.value.filter(e => e%2 === 0)
+      state.value = action.payload
     },
   },
 }

@@ -13,6 +13,7 @@ import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { useSelector, useDispatch } from 'react-redux';
 import { update } from './reduxComponents/me/meSlice'
+import { useNavigate } from "react-router"
 
 function Copyright(props) {
   return (
@@ -27,9 +28,10 @@ function Copyright(props) {
   );
 }
 
-const theme = createTheme();
+// const theme = createTheme();
 
 function Login() {
+  let navigate= useNavigate();
   const me = useSelector((state) => state.me.value)
   const dispatch = useDispatch()
   const handleSubmit = (event) => {
@@ -48,7 +50,9 @@ function Login() {
     }).then((r) => {
       // setIsLoading(false);
       if (r.ok) {
-        r.json().then(data => dispatch(update({id:data.id,username:data.username})));
+        r.json().then(data => 
+          dispatch(update({id:data.id,username:data.username})));
+          navigate('/profile');
       } else {
         r.json().then(data => console.log(data));
       }

@@ -51,9 +51,9 @@ function Home() {
 
         <button
           aria-label="Decrement value"
-          onClick={() => dispatch(updateBike())}
+          onClick={() => dispatch(updateBike([1,2,3,4,5,6,7,8,9]))}
         >
-          Filter
+          Update
         </button>
 
       </div>
