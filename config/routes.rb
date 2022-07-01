@@ -8,6 +8,10 @@ Rails.application.routes.draw do
   post "/login", to: "sessions#create"
   delete "/logout", to: "sessions#destroy"
   get "/reset", to: "application#create"
+  get "/cart", to: "sessions#get_cart"
+  patch "/add", to: "sessions#add_to_cart"
+  patch "/remove", to: "sessions#remove_from_cart"
+  delete "/cart", to: "sessions#delete_cart"
   
   get '*path',
       to: 'fallback#index',

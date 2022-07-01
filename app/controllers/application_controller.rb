@@ -3,6 +3,7 @@ class ApplicationController < ActionController::API
     rescue_from ActiveRecord::RecordInvalid, with: :render_unprocessable_entity_response
 
   before_action :authorize, skip: :create
+  # skip_before_action :authorize, only: [:create]
 
   def create
     

@@ -14,6 +14,7 @@ import { red } from '@mui/material/colors';
 import Button from '@mui/material/Button';
 import { useSelector, useDispatch } from 'react-redux'
 import bikesSlice, { createBike,deleteBike,updateBike } from '../reduxComponents/bikes/bikesSlice'
+import { addToCart } from '../reduxComponents/cart/cartSlice';
 
 // import FavoriteIcon from '@mui/icons-material/Favorite';
 // import ShareIcon from '@mui/icons-material/Share';
@@ -32,6 +33,7 @@ const ExpandMore = styled((props) => {
 }));
 
 function BikeCard( {index} ) {
+  const cart = useSelector((state) => state.cart.value)
   const bikes = useSelector((state) => state.bikes.value)
   const dispatch = useDispatch()
   const [expanded, setExpanded] = React.useState(false);
@@ -39,7 +41,47 @@ function BikeCard( {index} ) {
   const handleExpandClick = () => {
     setExpanded(!expanded);
   };
-  // console.log(Math.floor(Math.random() * 100)*100)
+
+  const addToCart = (e) => {
+    // console.log(cart)
+    // console.log(e.target.id)
+    // console.log(bikes[e.target.id])
+    fetch("/add", {
+      method: "PATCH",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(bikes[e.target.id]),
+    }).then((r) => {
+      if (r.ok) {
+        r.json().then(data => console.log(data));
+        // dispatch(addToCart(bikes[e.target.id]));
+        // r.json().then(data => console.log(data));
+      } else {
+        r.json().then(data => console.log(data));
+      }
+    });;
+  };
+
+  const removeFromCart = (e)=>{
+    // console.log(e.target.id)
+    // console.log(bikes[e.target.id])
+    fetch("/remove", {
+   method: "PATCH",
+   headers: {
+     "Content-Type": "application/json",
+   },
+   body: JSON.stringify(bikes[e.target.id]),
+ }).then((r) => {
+   if (r.ok) {
+     r.json().then(data => console.log(data));
+    //  dispatch(deleteFromCart(e.target.id));
+     // r.json().then(data => console.log(data));
+   } else {
+     r.json().then(data => console.log(data));
+   }
+ });;
+}
   
 
   return (
@@ -91,9 +133,11 @@ function BikeCard( {index} ) {
           <Typography paragraph></Typography>
           <Link href={bikes[index].url}>Click Here for more info about the {bikes[index].model}</Link>
           <Typography paragraph></Typography>
-          <Link>Add to cart</Link>
+          <Link id={index} onClick={addToCart}>Add to cart</Link>
+          <Link id={index} onClick={removeFromCart}>Remove from cart</Link>
           <Typography></Typography>
           <Link>Add to favorites</Link>
+          <p>{index}</p>
         </CardContent>
       </Collapse>
     </Card>

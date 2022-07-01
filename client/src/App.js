@@ -11,6 +11,7 @@ import Header from "./Header";
 import BikeList from "./bikeList/BikeList";
 import Checkout from "./checkout/Checkout";
 import Profile from "./Profile";
+import Cart from "./Cart";
 
 const darkTheme = createTheme({
   palette: {
@@ -48,6 +49,7 @@ function App() {
       <Header />
       <Routes>
         <Route path="/" element={<Home />} />
+        <Route path="/myCart" element={<Cart />} />
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<Signup />} />
         <Route path="/profile" element={<Profile />} />

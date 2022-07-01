@@ -155,6 +155,14 @@ const Header = () => {
               >
                 login
               </Button>}
+              <Button
+                key='cart'
+                onClick={handleCloseNavMenu}
+                href='/myCart'
+                sx={{ my: 2, color: 'white', display: 'block' }}
+              >
+                cart
+              </Button>
               {/* <Button
                 key='login'
                 onClick={handleCloseNavMenu}

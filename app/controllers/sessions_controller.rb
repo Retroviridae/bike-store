@@ -15,6 +15,38 @@ class SessionsController < ApplicationController
       session.delete :user_id
       head :no_content
     end
+
+    def get_cart
+      # byebug
+      session[:cart] ||= {}
+      render json: session[:cart]
+    end
+
+    def add_to_cart
+      # byebug
+      if (session[:cart][params[:id].to_s]==nil)
+        session[:cart][params[:id].to_s]=1
+      else 
+        session[:cart][params[:id].to_s]+=1
+      end
+      render json: session[:cart]
+    end
+
+    def remove_from_cart
+      # byebug
+      if (session[:cart][params[:id].to_s]>1)
+        session[:cart][params[:id].to_s]-=1
+      elsif (session[:cart][params[:id].to_s]==1)
+        session[:cart].delete(params[:id].to_s)
+      end
+      render json: session[:cart]
+    end
+
+    def delete_cart
+      # byebug
+      session.delete :cart
+      head :no_content
+    end
   
   end
   
