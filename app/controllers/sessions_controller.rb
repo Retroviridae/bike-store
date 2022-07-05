@@ -24,6 +24,7 @@ class SessionsController < ApplicationController
 
     def add_to_cart
       # byebug
+      params[:id]= params[:id]-1
       if (session[:cart][params[:id].to_s]==nil)
         session[:cart][params[:id].to_s]=1
       else 
@@ -34,6 +35,7 @@ class SessionsController < ApplicationController
 
     def remove_from_cart
       # byebug
+      params[:id]= params[:id]-1
       if (session[:cart][params[:id].to_s]>1)
         session[:cart][params[:id].to_s]-=1
       elsif (session[:cart][params[:id].to_s]==1)

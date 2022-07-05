@@ -15,6 +15,8 @@ import { createTheme, ThemeProvider } from '@mui/material/styles';
 import AddressForm from './AddressForm';
 import PaymentForm from './PaymentForm';
 import Review from './Review';
+import { useState, useEffect } from "react";
+import { useSelector, useDispatch } from 'react-redux';
 
 function Copyright() {
   return (
@@ -47,6 +49,16 @@ function getStepContent(step) {
 const theme = createTheme();
 
 function Checkout() {
+  const cart = useSelector((state) => state.cart.value)
+  const bikes = useSelector(state => state.bikes.value)
+  const address = useSelector(state => state.address.value)
+  const payment = useSelector(state => state.payment.value)
+  const me = useSelector((state) => state.me.value)
+  const dispatch = useDispatch() 
+  let hash = {}
+  hash = {cart:{...cart},...address, ...payment,user_id:me.id}
+  console.log("hash"+hash)
+
   const [activeStep, setActiveStep] = React.useState(0);
 
   const handleNext = () => {
@@ -56,6 +68,31 @@ function Checkout() {
   const handleBack = () => {
     setActiveStep(activeStep - 1);
   };
+  // activeStep === steps.length?console.log('worked'):null
+  
+  useEffect(() => {
+    if (activeStep === steps.length){
+      // console.log(address)
+      // console.log(payment)
+      // console.log(cart)
+      // console.log(me.id)
+    fetch("/orders", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(hash),
+    }).then((r) => {
+      // setIsLoading(false);
+      if (r.ok) {
+        r.json().then(data => console.log(data));
+      } else {
+        r.json().then(data => console.log(data));
+      }
+    });;
+  };
+
+  }, [activeStep]);
 
   return (
     // <ThemeProvider theme={theme}>
@@ -95,9 +132,7 @@ function Checkout() {
                   Thank you for your order.
                 </Typography>
                 <Typography variant="subtitle1">
-                  Your order number is #2001539. We have emailed your order
-                  confirmation, and will send you an update when your order has
-                  shipped.
+                  Your order number is "INSERT TRANSACTION ID HERE". Check your profile page for information.
                 </Typography>
               </React.Fragment>
             ) : (

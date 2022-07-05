@@ -1,4 +1,3 @@
-import * as React from 'react';
 import { styled } from '@mui/material/styles';
 import Card from '@mui/material/Card';
 import CardHeader from '@mui/material/CardHeader';
@@ -13,8 +12,9 @@ import Link from '@mui/material/Link';
 import { red } from '@mui/material/colors';
 import Button from '@mui/material/Button';
 import { useSelector, useDispatch } from 'react-redux'
-import bikesSlice, { createBike,deleteBike,updateBike } from '../reduxComponents/bikes/bikesSlice'
-import { addToCart } from '../reduxComponents/cart/cartSlice';
+import { updateCart } from './reduxComponents/cart/cartSlice';
+import React, { useEffect, useState } from "react";
+
 
 // import FavoriteIcon from '@mui/icons-material/Favorite';
 // import ShareIcon from '@mui/icons-material/Share';
@@ -32,11 +32,24 @@ const ExpandMore = styled((props) => {
   }),
 }));
 
-function BikeCard( {index} ) {
+function OrderCard( {index} ) {
   const cart = useSelector((state) => state.cart.value)
   const bikes = useSelector((state) => state.bikes.value)
   const dispatch = useDispatch()
   const [expanded, setExpanded] = React.useState(false);
+
+
+//   useEffect(()=>{ fetch("/cart")
+//       .then((r) => {
+//         if (r.ok) {
+//           // r.json().then(data => console.log(data));
+//           r.json().then(data => dispatch(updateCart(data)),
+//           );
+          
+//         } else {
+//           r.json().then(data => console.log(data));
+//         }
+//       });;},[cart])
 
   const handleExpandClick = () => {
     setExpanded(!expanded);
@@ -54,9 +67,9 @@ function BikeCard( {index} ) {
       body: JSON.stringify(bikes[e.target.id]),
     }).then((r) => {
       if (r.ok) {
-        r.json().then(data => console.log(data));
-        // dispatch(addToCart(bikes[e.target.id]));
         // r.json().then(data => console.log(data));
+        // dispatch(addToCart(bikes[e.target.id]));
+        r.json().then(data => dispatch(updateCart(data)));
       } else {
         r.json().then(data => console.log(data));
       }
@@ -74,9 +87,10 @@ function BikeCard( {index} ) {
    body: JSON.stringify(bikes[e.target.id]),
  }).then((r) => {
    if (r.ok) {
-     r.json().then(data => console.log(data));
+    //  r.json().then(data => console.log(data));
     //  dispatch(deleteFromCart(e.target.id));
-     // r.json().then(data => console.log(data));
+    r.json().then(data => dispatch(updateCart(data)));
+    console.log(cart)
    } else {
      r.json().then(data => console.log(data));
    }
@@ -110,7 +124,21 @@ function BikeCard( {index} ) {
         <Typography variant="body2" color="text.secondary">
         {"$"+bikes[index].price.toLocaleString("en-US")}
         </Typography>
-        <Button onClick={handleExpandClick}> {expanded?'Hide':'Show more'}</Button>
+        <Typography  variant="body2" color="text.secondary">
+        {"quantity:"+cart[index]}
+        </Typography>
+        <Typography variant="body2" color="text.secondary">
+        {("$"+(bikes[index].price*cart[index]).toLocaleString("en-US"))}
+        </Typography>
+        <Button id={index} onClick={addToCart} size="small" variant="outlined" color="success" >
+        +
+        </Button>
+        <Button id={index} onClick={removeFromCart} size="small" variant="outlined" color="warning" >
+        -
+        </Button>
+        
+        {/* <button id={index} onClick={removeFromCart}>Remove from cart</button> */}
+        {/* <Button onClick={handleExpandClick}> Show more</Button> */}
       </CardContent>
       <CardActions disableSpacing>
         <IconButton aria-label="add to favorites">
@@ -128,24 +156,19 @@ function BikeCard( {index} ) {
           {/* <ExpandMoreIcon /> */}
         </ExpandMore>
       </CardActions>
-      <Collapse in={expanded} timeout="auto" unmountOnExit>
+      {/* <Collapse in={expanded} timeout="auto" unmountOnExit>
         <CardContent>
-          <Button href={bikes[index].url}>Click Here for more info about the {bikes[index].model}</Button>
-          {/* <Typography paragraph></Typography> */}
-          {/* <Link id={index} onClick={addToCart}>Add to cart</Link>
-          <Link id={index} onClick={removeFromCart}>Remove from cart</Link> */}
+          <Typography paragraph></Typography>
+          <Link href={bikes[index].url}>Click Here for more info about the {bikes[index].model}</Link>
+          <Typography paragraph></Typography>
+          <Link id={index} onClick={addToCart}>Add to cart</Link>
+          <Link id={index} onClick={removeFromCart}>Remove from cart</Link>
           <Typography></Typography>
-          <Button id={index} onClick={addToCart} size="small" variant="outlined" color="success" >
-        Add to cart
-        </Button>
-        {/* <Button id={index} onClick={removeFromCart} size="small" variant="outlined" color="warning" >
-        -
-        </Button> */}
-          {/* <p>{index}</p> */}
+          <Link>Add to favorites</Link>
         </CardContent>
-      </Collapse>
+      </Collapse> */}
     </Card>
   );
 }
 
-export default BikeCard;
+export default OrderCard;

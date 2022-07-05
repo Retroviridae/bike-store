@@ -10,8 +10,9 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_06_30_182235) do
+ActiveRecord::Schema[7.0].define(version: 2022_07_05_204415) do
   # These are extensions that must be enabled in order to support this database
+  enable_extension "hstore"
   enable_extension "plpgsql"
 
   create_table "bikes", force: :cascade do |t|
@@ -20,6 +21,21 @@ ActiveRecord::Schema[7.0].define(version: 2022_06_30_182235) do
     t.string "maker"
     t.string "url"
     t.integer "price"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "orders", force: :cascade do |t|
+    t.string "address"
+    t.string "city"
+    t.string "state"
+    t.integer "zip"
+    t.string "cardName"
+    t.integer "cardNumber"
+    t.integer "cvv"
+    t.string "expiration"
+    t.hstore "cart"
+    t.integer "user_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end

@@ -1,6 +1,6 @@
 import {  useEffect } from "react";
 import { useSelector, useDispatch } from 'react-redux'
-import bikesSlice, { createBike,deleteBike,updateBike } from '../reduxComponents/bikes/bikesSlice'
+// import bikesSlice, { createBike,deleteBike,updateBike } from '../reduxComponents/bikes/bikesSlice'
 import BikeCard from "./BikeCard";
 
 function BikeList() {
@@ -13,8 +13,6 @@ pageUrl.searchParams.set('limit', 20);
 pageUrl.searchParams.set('include', '*');
 pageUrl.searchParams.set('q', 'specialized');
 // pageUrl.searchParams.set('isEbike', 'false');
-
-
 
 
   const bikes = useSelector((state) => state.bikes.value)
@@ -53,37 +51,37 @@ pageUrl.searchParams.set('q', 'specialized');
     //     }
     //   });
     // }, []);
-    useEffect(() => {
-      fetch('/bikes')
-      .then((r) => {
-        if (r.ok) {
-          r.json().then(data => 
-            // console.log(data))
-            dispatch(updateBike(data)))
+    // useEffect(() => {
+    //   fetch('/bikes')
+    //   .then((r) => {
+    //     if (r.ok) {
+    //       r.json().then(data => 
+    //         // console.log(data))
+    //         dispatch(updateBike(data)))
             
-            // {data.items.forEach(bike=>{
-            //   fetch("/bikes", {
-            //     method: "POST",
-            //     headers: {
-            //       "Content-Type": "application/json",
-            //     },
-            //     body: JSON.stringify(bike),
-            //   }).then((r) => {
-            //     // setIsLoading(false);
-            //     if (r.ok) {
-            //       r.json().then(data => console.log(data));
-            //     } else {
-            //       r.json().then(data => console.log(data));
-            //     }
-            //   });;
-            // })
-            //   dispatch(updateBike(data.items))
-            // })
-        }else {
-          r.json().then(data => console.log(data));
-        }
-      });
-    }, []);
+    //         // {data.items.forEach(bike=>{
+    //         //   fetch("/bikes", {
+    //         //     method: "POST",
+    //         //     headers: {
+    //         //       "Content-Type": "application/json",
+    //         //     },
+    //         //     body: JSON.stringify(bike),
+    //         //   }).then((r) => {
+    //         //     // setIsLoading(false);
+    //         //     if (r.ok) {
+    //         //       r.json().then(data => console.log(data));
+    //         //     } else {
+    //         //       r.json().then(data => console.log(data));
+    //         //     }
+    //         //   });;
+    //         // })
+    //         //   dispatch(updateBike(data.items))
+    //         // })
+    //     }else {
+    //       r.json().then(data => console.log(data));
+    //     }
+    //   });
+    // }, []);
     // console.log(bikes)
 
     // fetch("/bikes", {

@@ -12,6 +12,8 @@ import BikeList from "./bikeList/BikeList";
 import Checkout from "./checkout/Checkout";
 import Profile from "./Profile";
 import Cart from "./Cart";
+import { updateBike } from "./reduxComponents/bikes/bikesSlice";
+import { updateCart } from './reduxComponents/cart/cartSlice';
 
 const darkTheme = createTheme({
   palette: {
@@ -27,12 +29,38 @@ function App() {
   useEffect(() => {
     fetch("/me").then((r) => {
       if (r.ok) {
-        r.json().then((user) => dispatch(update({id:user.id,username:user.username})));
+        r.json().then((user) => dispatch(update(user)));
       }else {
         dispatch(update({}))
       }
     });
   }, []);
+  
+
+  useEffect(() => {
+    fetch('/bikes')
+    .then((r) => {
+      if (r.ok) {
+        r.json().then(data => 
+          // console.log(data))
+          dispatch(updateBike(data)))
+      }else {
+        r.json().then(data => console.log(data));
+      }
+    });
+  }, []);
+
+  useEffect(()=>{ fetch("/cart")
+      .then((r) => {
+        if (r.ok) {
+          // r.json().then(data => console.log(data));
+          r.json().then(data => dispatch(updateCart(data)),
+          );
+          
+        } else {
+          r.json().then(data => console.log(data));
+        }
+      });;},[])
   
   
   // if (user) return (
