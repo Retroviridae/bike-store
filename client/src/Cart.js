@@ -70,12 +70,8 @@ function Cart(){
 
     return (
         <div>
-            {total>0?<p>Total:${total.toLocaleString("en-US")}</p>:"Loading..."}
-            {/* <p>cart component</p> */}
+            {total>0?<p>Total:${total.toLocaleString("en-US")}</p>:"Cart Empty"}
             {display.map(e=>{return(<CartCard index={e} />)})}
-            {/* {bikes.map((e,index)=>{return(<p>index={index} key={index}</p>)})} */}
-            {/* <CartCard index={1}/> */}
-
         </div>
     )
 }

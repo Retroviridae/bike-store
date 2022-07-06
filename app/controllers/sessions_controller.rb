@@ -47,6 +47,7 @@ class SessionsController < ApplicationController
     def delete_cart
       # byebug
       session.delete :cart
+      session[:cart] ||= {}
       head :no_content
     end
   

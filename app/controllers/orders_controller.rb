@@ -17,6 +17,14 @@ class OrdersController < ApplicationController
         render json: order, status: :created
     end
 
+    def destroy
+        # byebug
+        order = Order.find(params[:id])
+        order.destroy
+        user = User.find(session[:user_id])
+        render json: user
+    end
+
     # private
 
     # def order_params

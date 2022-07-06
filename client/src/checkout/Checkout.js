@@ -17,6 +17,7 @@ import PaymentForm from './PaymentForm';
 import Review from './Review';
 import { useState, useEffect } from "react";
 import { useSelector, useDispatch } from 'react-redux';
+import cartSlice, { updateCart} from '../reduxComponents/cart/cartSlice';
 
 function Copyright() {
   return (
@@ -85,11 +86,15 @@ function Checkout() {
     }).then((r) => {
       // setIsLoading(false);
       if (r.ok) {
-        r.json().then(data => console.log(data));
+        r.json().then(fetch("/cart", { method: "DELETE" }).then((r) => {
+          if (r.ok) {
+            r.json().then(data => dispatch(updateCart(data)))
+          }
+        }));
       } else {
         r.json().then(data => console.log(data));
       }
-    });;
+    })
   };
 
   }, [activeStep]);

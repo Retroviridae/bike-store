@@ -51,9 +51,9 @@ function Login() {
       // setIsLoading(false);
       if (r.ok) {
         r.json().then(data => 
-          // dispatch(update({data})));
-          // navigate('/profile');
-          console.log(data))
+          dispatch(update(data)));
+          navigate('/profile');
+          // console.log(data))
       } else {
         r.json().then(data => console.log(data));
       }

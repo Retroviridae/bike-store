@@ -72,62 +72,7 @@ function Home() {
 
   return (
     <div>
-      <div>
-        {/* <button
-          aria-label="Increment value"
-          onClick={() => dispatch(increment())}
-        >
-          Increment
-        </button>
-        <span>{count}</span>
-        <button
-          aria-label="Decrement value"
-          onClick={() => dispatch(decrement())}
-        >
-          Decrement
-        </button>
-
-        <button
-          aria-label="Decrement value"
-          onClick={() => dispatch(incrementByAmount(5))}
-        >
-          Increase by 5
-        </button>
-
-      </div>
-
-      <div>
-        <button
-          aria-label="Increment value"
-          onClick={() => dispatch(createBike(2))}
-        >
-          Push
-        </button>
-        <span>{bikes}</span>
-        <button
-          aria-label="Decrement value"
-          onClick={() => dispatch(deleteBike(9))}
-        >
-          Pop
-        </button>
-
-        <button
-          aria-label="Decrement value"
-          onClick={() => dispatch(updateBike([1,2,3,4,5,6,7,8,9]))}
-        >
-          Update
-        </button> */}
-
-      </div>
-      <p></p>
-      {/* <button onClick={dbReset} variant="danger">Reset Database</button> */}
-      <button onClick={getCart} variant="danger">Get Cart</button>
-      {/* <button onClick={() => dispatch(addToCart({"model":"giant talon", "price":500}))} variant="danger">Add to Cart</button> */}
-      {/* <span>{cart}</span> */}
-      {/* <button onClick={() => dispatch(deleteCart())} variant="danger">Delete Cart</button> */}
-      <p></p>
-      {/* <button onClick={addCart} variant="danger">Add to Cart</button> */}
-      <button onClick={handleDeleteCart} variant="danger">Delete cart session</button>
+      Hello
     </div>
   );
 }

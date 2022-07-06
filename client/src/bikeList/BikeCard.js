@@ -104,7 +104,7 @@ function BikeCard( {index} ) {
         component="img"
         height="194"
         image={bikes[index].img}
-        alt="Paella dish"
+        alt={bikes[index].model}
       />
       <CardContent>
         <Typography variant="body2" color="text.secondary">

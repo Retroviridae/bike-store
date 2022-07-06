@@ -12,14 +12,10 @@ import Link from '@mui/material/Link';
 import { red } from '@mui/material/colors';
 import Button from '@mui/material/Button';
 import { useSelector, useDispatch } from 'react-redux'
-import { updateCart } from './reduxComponents/cart/cartSlice';
 import React, { useEffect, useState } from "react";
+import { tooltipClasses } from '@mui/material';
+import { update } from './reduxComponents/me/meSlice'
 
-
-// import FavoriteIcon from '@mui/icons-material/Favorite';
-// import ShareIcon from '@mui/icons-material/Share';
-// import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
-// import MoreVertIcon from '@mui/icons-material/MoreVert';
 
 const ExpandMore = styled((props) => {
   const { expand, ...other } = props;
@@ -32,73 +28,90 @@ const ExpandMore = styled((props) => {
   }),
 }));
 
-function OrderCard( {index} ) {
-  const cart = useSelector((state) => state.cart.value)
+
+
+function OrderCard( { order }) {
+
+  // const cart = useSelector((state) => state.cart.value)
   const bikes = useSelector((state) => state.bikes.value)
+  // const me = useSelector((state) => state.me.value)
+  const [display,setDisplay] = useState([])
+  const [total,setTotal] = useState(0)
   const dispatch = useDispatch()
   const [expanded, setExpanded] = React.useState(false);
 
-
-//   useEffect(()=>{ fetch("/cart")
-//       .then((r) => {
-//         if (r.ok) {
-//           // r.json().then(data => console.log(data));
-//           r.json().then(data => dispatch(updateCart(data)),
-//           );
-          
-//         } else {
-//           r.json().then(data => console.log(data));
-//         }
-//       });;},[cart])
-
-  const handleExpandClick = () => {
-    setExpanded(!expanded);
-  };
-
-  const addToCart = (e) => {
-    // console.log(cart)
-    // console.log(e.target.id)
-    // console.log(bikes[e.target.id])
-    fetch("/add", {
-      method: "PATCH",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(bikes[e.target.id]),
-    }).then((r) => {
-      if (r.ok) {
-        // r.json().then(data => console.log(data));
-        // dispatch(addToCart(bikes[e.target.id]));
-        r.json().then(data => dispatch(updateCart(data)));
-      } else {
-        r.json().then(data => console.log(data));
+  useEffect(()=>{
+    if(!!order.cart&&!!bikes[0]){
+      // console.log(me.orders[0].cart)
+      // console.log("me.orders.cart")
+      // console.log(me.orders[0].cart)
+      let array = []
+      let sum = 0
+  
+      for(const key in order.cart){
+        // array.push(<p>Bike id:{key}, quantity:{cart[key]} Bike:{bikes[key].model}</p>)
+        array.push(key)
+        sum = sum + (bikes[key].price*order.cart[key])
       }
-    });;
-  };
+      // console.log("array")
+      // console.log(array)
+      // console.log(sum)
+      setTotal(sum)
+      setDisplay(array)
 
-  const removeFromCart = (e)=>{
+  }
+  },[bikes])
+
+
+  // useEffect(()=>{
+  //   if(me.orders){
+  //     // console.log(me.orders[0].cart)
+  //     // console.log("me.orders.cart")
+  //     // console.log(me.orders[0].cart)
+  //     let array = []
+  //     let sum = 0
+  
+  //     for(const key in me.orders[0].cart){
+  //       // array.push(<p>Bike id:{key}, quantity:{cart[key]} Bike:{bikes[key].model}</p>)
+  //       array.push(key)
+  //       sum = sum + (bikes[key].price*me.orders[0].cart[key])
+  //     }
+  //     // console.log("array")
+  //     console.log(array)
+  //     // console.log(sum)
+  //     setTotal(sum)
+  //     setDisplay(array)
+
+  // }
+
+  // },[])
+
+  const deleteOrder = (e)=>{
+    // console.log(me)
+    // console.log("dldete order")
     // console.log(e.target.id)
     // console.log(bikes[e.target.id])
-    fetch("/remove", {
-   method: "PATCH",
-   headers: {
-     "Content-Type": "application/json",
-   },
-   body: JSON.stringify(bikes[e.target.id]),
+    fetch(`/orders/${e.target.id}`, {
+   method: "DELETE",
  }).then((r) => {
    if (r.ok) {
-    //  r.json().then(data => console.log(data));
+     r.json().then(data => dispatch(update(data)));
     //  dispatch(deleteFromCart(e.target.id));
-    r.json().then(data => dispatch(updateCart(data)));
-    console.log(cart)
+    // r.json().then(data => dispatch(updateCart(data)));
+    // console.log(cart)
    } else {
      r.json().then(data => console.log(data));
    }
  });;
 }
-  
 
+
+  const handleExpandClick = () => {
+    setExpanded(!expanded);
+  };
+  
   return (
+    
     <Card sx={{ maxWidth: 345 }}>
       <CardHeader
         // avatar={
@@ -111,34 +124,31 @@ function OrderCard( {index} ) {
             {/* <MoreVertIcon /> */}
           </IconButton>
         }
-        title={bikes[index].model}
-        subheader={bikes[index].maker}
+        title={"Order ID:"+order.id}
+        subheader={"Order total: $"+total.toLocaleString("en-US")}
       />
-      <CardMedia
+      {/* <CardMedia
         component="img"
         height="194"
-        image={bikes[index].img}
-        alt="Paella dish"
-      />
+        image="img link"
+        alt="img link, maybe cut?"
+      /> */}
       <CardContent>
-        <Typography variant="body2" color="text.secondary">
-        {"$"+bikes[index].price.toLocaleString("en-US")}
+        <Typography variant="body2" >
+        {display.map(bike=>{return(
+        <div key={bike.id}>
+          <Button color="primary"   href={bikes[bike].url}>{order.cart[bike]+": "+bikes[bike].model}</Button>
+        </div>)})} 
         </Typography>
-        <Typography  variant="body2" color="text.secondary">
-        {"quantity:"+cart[index]}
-        </Typography>
-        <Typography variant="body2" color="text.secondary">
-        {("$"+(bikes[index].price*cart[index]).toLocaleString("en-US"))}
-        </Typography>
-        <Button id={index} onClick={addToCart} size="small" variant="outlined" color="success" >
+        {/* <Button id={index} onClick={addToCart} size="small" variant="outlined" color="success" >
         +
         </Button>
         <Button id={index} onClick={removeFromCart} size="small" variant="outlined" color="warning" >
         -
-        </Button>
+        </Button> */}
         
         {/* <button id={index} onClick={removeFromCart}>Remove from cart</button> */}
-        {/* <Button onClick={handleExpandClick}> Show more</Button> */}
+        <Button color="primary" variant="outlined" onClick={handleExpandClick}> {expanded?'hide':'Shipping info'}</Button>
       </CardContent>
       <CardActions disableSpacing>
         <IconButton aria-label="add to favorites">
@@ -156,17 +166,13 @@ function OrderCard( {index} ) {
           {/* <ExpandMoreIcon /> */}
         </ExpandMore>
       </CardActions>
-      {/* <Collapse in={expanded} timeout="auto" unmountOnExit>
+      <Collapse in={expanded} timeout="auto" unmountOnExit>
         <CardContent>
-          <Typography paragraph></Typography>
-          <Link href={bikes[index].url}>Click Here for more info about the {bikes[index].model}</Link>
-          <Typography paragraph></Typography>
-          <Link id={index} onClick={addToCart}>Add to cart</Link>
-          <Link id={index} onClick={removeFromCart}>Remove from cart</Link>
-          <Typography></Typography>
-          <Link>Add to favorites</Link>
+          <Typography paragraph>{order.address+", "+ order.city+", "+ order.state+", "+ order.zip}</Typography>
+          <Typography paragraph>{order.created_at.slice(0,10)}</Typography>
+          <Button id={order.id} variant="contained" color="error" onClick={deleteOrder}>Cancel Order</Button>
         </CardContent>
-      </Collapse> */}
+      </Collapse>
     </Card>
   );
 }
