@@ -2,11 +2,11 @@ class ApplicationController < ActionController::API
     include ActionController::Cookies
     rescue_from ActiveRecord::RecordInvalid, with: :render_unprocessable_entity_response
 
-  before_action :authorize, skip: :create
-  # skip_before_action :authorize, only: [:create]
+  before_action :authorize
+  skip_before_action :authorize, only: [:create]
 
   def create
-    
+    # byebug
     User.destroy_all
     Bike.destroy_all
     Order.destroy_all
