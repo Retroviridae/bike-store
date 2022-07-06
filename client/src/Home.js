@@ -11,10 +11,10 @@ function Home() {
   const cart = useSelector((state) => state.cart.value)
   const dispatch = useDispatch()
   
-  // const dbReset = ()=>{
-  //   fetch('/reset')
-  //   .then(resp=> resp.json())
-  //   .then(data => console.log(data))}
+  const dbReset = ()=>{
+    fetch('/reset')
+    .then(resp=> resp.json())
+    .then(data => console.log(data))}
 
   const getCart = ()=>{ fetch("/cart")
   .then((r) => {
@@ -78,7 +78,7 @@ function Home() {
       <p>3. Sample users: username:"Updog", password:"1234"; username:"KateSkate", password:"1234";</p>
       <p>4. Big thanks to https://99spokes.com/ . They helped me with all of the bike seed data.</p>
       <p>5. Bike prices were randomized, the 99spokes link has the accurate price. </p> */}
-      <button>Reset DB</button>
+      <button onClick={dbReset}>Reset DB</button>
     </div>
   );
 }

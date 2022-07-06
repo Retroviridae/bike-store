@@ -390,6 +390,7 @@ class ApplicationController < ActionController::API
     bikes.each{|bike| Bike.create(model:bike[:model],img:bike[:img],url:bike[:url],price:bike[:price],maker:bike[:maker])}
     
     puts "Done"
+    head :no_content
 
   end
 
