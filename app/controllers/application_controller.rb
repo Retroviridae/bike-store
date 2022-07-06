@@ -9,6 +9,7 @@ class ApplicationController < ActionController::API
     
     User.destroy_all
     Bike.destroy_all
+    Order.destroy_all
     puts "Seeding"
     puts "Creating users"
     

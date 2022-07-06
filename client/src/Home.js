@@ -72,7 +72,13 @@ function Home() {
 
   return (
     <div>
-      Hello
+      {/* <p>Notes:</p> 
+      <p>1. Site is for demo only. Don't use sensitive addresses or credit card info.</p>
+      <p>2. Reset the DB before use.</p>
+      <p>3. Sample users: username:"Updog", password:"1234"; username:"KateSkate", password:"1234";</p>
+      <p>4. Big thanks to https://99spokes.com/ . They helped me with all of the bike seed data.</p>
+      <p>5. Bike prices were randomized, the 99spokes link has the accurate price. </p> */}
+      <button>Reset DB</button>
     </div>
   );
 }
