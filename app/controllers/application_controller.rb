@@ -7,9 +7,11 @@ class ApplicationController < ActionController::API
 
   def create
     # byebug
+    
     User.destroy_all
     Bike.destroy_all
     Order.destroy_all
+    session.delete :cart
     puts "Seeding"
     puts "Creating users"
     
