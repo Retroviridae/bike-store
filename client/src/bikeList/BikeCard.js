@@ -6,15 +6,15 @@ import CardMedia from '@mui/material/CardMedia';
 import CardContent from '@mui/material/CardContent';
 import CardActions from '@mui/material/CardActions';
 import Collapse from '@mui/material/Collapse';
-import Avatar from '@mui/material/Avatar';
+// import Avatar from '@mui/material/Avatar';
 import IconButton from '@mui/material/IconButton';
 import Typography from '@mui/material/Typography';
-import Link from '@mui/material/Link';
-import { red } from '@mui/material/colors';
+// import Link from '@mui/material/Link';
+// import { red } from '@mui/material/colors';
 import Button from '@mui/material/Button';
-import { useSelector, useDispatch } from 'react-redux'
-import bikesSlice, { createBike,deleteBike,updateBike } from '../reduxComponents/bikes/bikesSlice'
-import { addToCart } from '../reduxComponents/cart/cartSlice';
+import { useSelector } from 'react-redux'
+// import bikesSlice, { createBike,deleteBike,updateBike } from '../reduxComponents/bikes/bikesSlice'
+// import { addToCart } from '../reduxComponents/cart/cartSlice';
 
 // import FavoriteIcon from '@mui/icons-material/Favorite';
 // import ShareIcon from '@mui/icons-material/Share';
@@ -33,9 +33,9 @@ const ExpandMore = styled((props) => {
 }));
 
 function BikeCard( {index} ) {
-  const cart = useSelector((state) => state.cart.value)
+  // const cart = useSelector((state) => state.cart.value)
   const bikes = useSelector((state) => state.bikes.value)
-  const dispatch = useDispatch()
+  // const dispatch = useDispatch()
   const [expanded, setExpanded] = React.useState(false);
 
   const handleExpandClick = () => {
@@ -63,25 +63,25 @@ function BikeCard( {index} ) {
     });;
   };
 
-  const removeFromCart = (e)=>{
-    // console.log(e.target.id)
-    // console.log(bikes[e.target.id])
-    fetch("/remove", {
-   method: "PATCH",
-   headers: {
-     "Content-Type": "application/json",
-   },
-   body: JSON.stringify(bikes[e.target.id]),
- }).then((r) => {
-   if (r.ok) {
-     r.json().then(data => console.log(data));
-    //  dispatch(deleteFromCart(e.target.id));
-     // r.json().then(data => console.log(data));
-   } else {
-     r.json().then(data => console.log(data));
-   }
- });;
-}
+//   const removeFromCart = (e)=>{
+//     // console.log(e.target.id)
+//     // console.log(bikes[e.target.id])
+//     fetch("/remove", {
+//    method: "PATCH",
+//    headers: {
+//      "Content-Type": "application/json",
+//    },
+//    body: JSON.stringify(bikes[e.target.id]),
+//  }).then((r) => {
+//    if (r.ok) {
+//      r.json().then(data => console.log(data));
+//     //  dispatch(deleteFromCart(e.target.id));
+//      // r.json().then(data => console.log(data));
+//    } else {
+//      r.json().then(data => console.log(data));
+//    }
+//  });;
+// }
   
 
   return (

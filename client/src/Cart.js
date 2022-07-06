@@ -1,4 +1,4 @@
-import { useSelector, useDispatch } from 'react-redux'
+import { useSelector } from 'react-redux'
 import React, { useEffect, useState } from "react";
 // import bikesSlice, { createBike,deleteBike,updateBike } from './reduxComponents/bikes/bikesSlice'
 // import cartSlice, { updateCart} from './reduxComponents/cart/cartSlice';
@@ -6,13 +6,13 @@ import CartCard from './CartCard';
 
 function Cart(){
     const cart = useSelector((state) => state.cart.value)
-    const bikes = useSelector(state => state.bikes.value)
-    const dispatch = useDispatch()    
+    const bikes = useSelector((state) => state.bikes.value)
+    // const dispatch = useDispatch()    
 
     const [display,setDisplay]= useState([])
     const [total,setTotal]= useState(0)
 
-    let array = []
+    // let array = []
 
     // useEffect(() => {
     //     fetch('/bikes')
@@ -47,6 +47,8 @@ function Cart(){
         for(const key in cart){
           // array.push(<p>Bike id:{key}, quantity:{cart[key]} Bike:{bikes[key].model}</p>)
           array.push(key)
+          console.log(key)
+          console.log(bikes[241])
           sum = sum + (bikes[key].price*cart[key])
         }
         // console.log(array)
