@@ -48,7 +48,7 @@ function Cart(){
           // array.push(<p>Bike id:{key}, quantity:{cart[key]} Bike:{bikes[key].model}</p>)
           array.push(key)
           console.log(bikes)
-          // console.log(key)
+          console.log(key)
           // console.log(bikes[key])
           // sum = sum + (bikes[key].price*cart[key])
         }
