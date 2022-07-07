@@ -12,13 +12,15 @@ import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { useNavigate } from "react-router"
+import { useSelector, useDispatch } from 'react-redux';
+import { updateErrors } from './reduxComponents/errors/errorSlice';
 
 function Copyright(props) {
   return (
     <Typography variant="body2" color="text.secondary" align="center" {...props}>
       {'Copyright © '}
       <Link color="inherit" href="https://mui.com/">
-        Your Website
+        Vulpes
       </Link>{' '}
       {new Date().getFullYear()}
       {'.'}
@@ -30,6 +32,8 @@ const theme = createTheme();
 
 function SignUp() {
   let navigate= useNavigate();
+  const dispatch = useDispatch()
+  const errors = useSelector((state) => state.error.value)
 
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -46,7 +50,7 @@ function SignUp() {
       if (r.ok) {
         r.json().then(navigate('/login'));
       } else {
-        r.json().then(data => console.log(data));
+        r.json().then(data => dispatch(updateErrors(data.errors)));
       }
     });;
   };
@@ -123,12 +127,12 @@ function SignUp() {
                   autoComplete="new-password"
                 />
               </Grid>
-              <Grid item xs={12}>
+              {/* <Grid item xs={12}>
                 <FormControlLabel
                   control={<Checkbox value="allowExtraEmails" color="primary" />}
                   label="I want to receive inspiration, marketing promotions and updates via email."
                 />
-              </Grid>
+              </Grid> */}
             </Grid>
             <Button
               type="submit"
@@ -138,6 +142,7 @@ function SignUp() {
             >
               Sign Up
             </Button>
+            {errors.map(error=>{return(<Typography fontWeight="600" color="#f44336">{error}</Typography>)})}
             <Grid container justifyContent="flex-end">
               <Grid item>
                 <Link href="/login" variant="body2">

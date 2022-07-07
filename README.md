@@ -1,6 +1,8 @@
 Deployed on :
 sudo service postgresql start
 
+npm start --prefix client
+
 https://phase-5-capstone-bike-store.herokuapp.com/
 
 heroku run console

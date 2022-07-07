@@ -58,7 +58,7 @@ function Checkout() {
   const dispatch = useDispatch() 
   let hash = {}
   hash = {cart:{...cart},...address, ...payment,user_id:me.id}
-  console.log("hash"+hash)
+  // console.log("hash"+hash)
 
   const [activeStep, setActiveStep] = React.useState(0);
 

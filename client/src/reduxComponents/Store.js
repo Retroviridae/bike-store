@@ -5,6 +5,7 @@ import meReducer from './me/meSlice'
 import cartReducer from './cart/cartSlice'
 import addressReducer from './address/addressSlice'
 import paymentReducer from './payment/paymentSlice'
+import errorReducer from './errors/errorSlice'
 
 export default configureStore({
   reducer: {
@@ -13,6 +14,7 @@ export default configureStore({
     me: meReducer,
     cart: cartReducer,
     address: addressReducer,
-    payment: paymentReducer
+    payment: paymentReducer,
+    error: errorReducer
   },
 })

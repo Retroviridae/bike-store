@@ -72,12 +72,16 @@ function Home() {
 
   return (
     <div>
+      <img
+        src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a8/John_Boyd_Dunlop_%28c1915%29.jpg/170px-John_Boyd_Dunlop_%28c1915%29.jpg"
+        alt="bicycle"
+        loading="lazy"
+      />
       <p>Notes:</p> 
       {/* <p>1. Site is for demo only. Don't use sensitive addresses or credit card info.</p>
       <p>2. Reset the DB before use.</p>
       <p>3. Sample users: username:"Updog", password:"1234"; username:"KateSkate", password:"1234";</p> */}
       <p>1. Big thanks to https://99spokes.com/ . They helped me with all of the bike seed data.</p>
-      <p>2. Bike prices were randomized, the 99spokes link has the accurate price. </p>
       {/* <button onClick={dbReset}>Reset DB</button> */}
     </div>
   );

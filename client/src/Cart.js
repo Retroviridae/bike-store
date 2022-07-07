@@ -47,15 +47,16 @@ function Cart(){
         for(const key in cart){
           // array.push(<p>Bike id:{key}, quantity:{cart[key]} Bike:{bikes[key].model}</p>)
           array.push(key)
-          console.log(key)
-          console.log(bikes[241])
+          // console.log(bikes)
+          // console.log(key)
+          // console.log(bikes[key])
           sum = sum + (bikes[key].price*cart[key])
         }
         // console.log(array)
         // console.log(display)
         setTotal(sum)
         setDisplay(array)
-      },[cart])
+      },[cart,bikes])
 
       // function displayCart(){
       //   console.log(cart)

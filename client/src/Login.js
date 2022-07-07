@@ -3,36 +3,39 @@ import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 // import CssBaseline from '@mui/material/CssBaseline';
 import TextField from '@mui/material/TextField';
-import FormControlLabel from '@mui/material/FormControlLabel';
-import Checkbox from '@mui/material/Checkbox';
+// import FormControlLabel from '@mui/material/FormControlLabel';
+// import Checkbox from '@mui/material/Checkbox';
 import Link from '@mui/material/Link';
 import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
-import { createTheme, ThemeProvider } from '@mui/material/styles';
+// import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { useSelector, useDispatch } from 'react-redux';
 import { update } from './reduxComponents/me/meSlice'
 import { useNavigate } from "react-router"
+import { updateErrors } from './reduxComponents/errors/errorSlice';
 
-function Copyright(props) {
-  return (
-    <Typography variant="body2" color="text.secondary" align="center" {...props}>
-      {'Copyright © '}
-      <Link color="inherit" href="https://mui.com/">
-        Your Website
-      </Link>{' '}
-      {new Date().getFullYear()}
-      {'.'}
-    </Typography>
-  );
-}
+// function Copyright(props) {
+//   return (
+//     <Typography variant="body2" color="text.secondary" align="center" {...props}>
+//       {'Copyright © '}
+//       <Link color="inherit" href="https://mui.com/">
+//         Your Website
+//       </Link>{' '}
+//       {new Date().getFullYear()}
+//       {'.'}
+//     </Typography>
+//   );
+// }
 
 // const theme = createTheme();
 
 function Login() {
   let navigate= useNavigate();
-  const me = useSelector((state) => state.me.value)
+  // const me = useSelector((state) => state.me.value)
+  const errors = useSelector((state) => state.error.value)
+  console.log(errors)
   const dispatch = useDispatch()
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -55,7 +58,7 @@ function Login() {
           navigate('/profile');
           // console.log(data))
       } else {
-        r.json().then(data => console.log(data));
+        r.json().then(data => dispatch(updateErrors(data.errors)));
       }
     });;
   };
@@ -82,8 +85,7 @@ function Login() {
 
   return (
     <div>
-
-
+      
       <Container >
         {/* <CssBaseline /> */}
         <Box
@@ -99,6 +101,7 @@ function Login() {
           <Typography component="h1" variant="h5">
             Sign in
           </Typography>
+
           <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
             <TextField
               margin="normal"
@@ -132,6 +135,7 @@ function Login() {
             >
               Sign In
             </Button>
+            {errors.map(error=>{return(<Typography fontWeight="600" color="red">{error}</Typography>)})}
             <Grid container>
               {/* <Grid item xs>
                 <Link href="#" variant="body2">

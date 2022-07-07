@@ -42,7 +42,7 @@ function AddressForm() {
       <Typography variant="h6" gutterBottom>
         Shipping address
       </Typography>
-      <Grid component="form" onSubmit={handleSubmit} container spacing={3}>
+      <Grid component="form" container spacing={3}>
         <Grid item xs={12} sm={6}>
           <TextField
             required
@@ -246,14 +246,14 @@ function AddressForm() {
             label="Use this address for payment details"
           />
         </Grid> */}
-        <button
+        {/* <button
               type="submit"
               fullWidth
               variant="contained"
               sx={{ mt: 3, mb: 2 }}
             >
               Submit
-        </button>
+        </button> */}
       </Grid>
     </React.Fragment>
   );
