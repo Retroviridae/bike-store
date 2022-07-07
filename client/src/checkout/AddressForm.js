@@ -6,26 +6,36 @@ import FormControlLabel from '@mui/material/FormControlLabel';
 import Checkbox from '@mui/material/Checkbox';
 import { updateAddress } from '../reduxComponents/address/addressSlice';
 import { useSelector, useDispatch } from 'react-redux';
+import { useForm } from "react-hook-form";
+import FormControl from '@mui/material/FormControl';
+import Input from '@mui/material/Input';
+import InputLabel from '@mui/material/InputLabel';
+import { updateErrors } from '../reduxComponents/errors/errorSlice';
+
 
 function AddressForm() {
 
   const address = useSelector(state => state.address.value)
   const dispatch = useDispatch()    
-  // console.log(address)
+  const { register, handleSubmit, formState: {errors} } =useForm()
+  const problems = useSelector((state) => state.error.value)
+  const step = useSelector((state) => state.counter.value)
+  // console.log(errors)
+  // console.log(step)
 
-  const handleSubmit = (event) => {
-    event.preventDefault();
-    const data = new FormData(event.currentTarget);
-    dispatch(updateAddress({
-      firstName: data.get('firstName'),
-      lastName: data.get('lastName'),
-      address1: data.get('address1'),
-      address2: data.get('address2'),
-      city: data.get('city'),
-      state: data.get('state'),
-      zip: data.get('zip'),
-      country: data.get('country'),
-    }))
+  // const handleSubmit = (event) => {
+  //   event.preventDefault();
+  //   const data = new FormData(event.currentTarget);
+  //   dispatch(updateAddress({
+  //     firstName: data.get('firstName'),
+  //     lastName: data.get('lastName'),
+  //     address1: data.get('address1'),
+  //     address2: data.get('address2'),
+  //     city: data.get('city'),
+  //     state: data.get('state'),
+  //     zip: data.get('zip'),
+  //     country: data.get('country'),
+  //   }))
     // console.log({
     //   firstName: data.get('firstName'),
     //   lastName: data.get('lastName'),
@@ -36,18 +46,19 @@ function AddressForm() {
     //   zip: data.get('zip'),
     //   country: data.get('country'),
     // })
-  }
+  // }
   return (
     <React.Fragment>
       <Typography variant="h6" gutterBottom>
         Shipping address
       </Typography>
-      <Grid component="form" container spacing={3}>
+      <Grid component="form" onSubmit={handleSubmit((data)=>{console.log(data)})} container spacing={3}>
         <Grid item xs={12} sm={6}>
-          <TextField
+        <InputLabel htmlFor="component-simple">First Name</InputLabel>
+          <Input
             required
             id="firstName"
-            name="firstName"
+           {...register("firstName", {minLength: {value:2,message:"Minumum 2"}})}
             label="First name"
             fullWidth
             autoComplete="given-name"
@@ -58,21 +69,23 @@ function AddressForm() {
                 firstName: e.target.value,
                 lastName: address.lastName,
                 address1: address.address1,
-                address2: address.address2,
                 city: address.city,
                 state: address.state,
                 zip: address.zip,
-                country: address.country,
               }))
             }
             }
           />
+          {<Typography size='small'  variant="subtitle1" >
+        {errors.firstName?.message}
+      </Typography>}
         </Grid>
         <Grid item xs={12} sm={6}>
-          <TextField
-            required
+        <InputLabel htmlFor="component-simple">Last Name</InputLabel>
+          <Input
+          required
             id="lastName"
-            name="lastName"
+            {...register("lastName", {minLength: {value:2,message:"Minumum 2"}})}
             label="Last name"
             fullWidth
             autoComplete="family-name"
@@ -83,21 +96,23 @@ function AddressForm() {
                 firstName: address.firstName,
                 lastName: e.target.value,
                 address1: address.address1,
-                address2: address.address2,
                 city: address.city,
                 state: address.state,
                 zip: address.zip,
-                country: address.country,
               }))
             }
             }
           />
+          {<Typography size='small'  variant="subtitle1" >
+        {errors.lastName?.message}
+      </Typography>}
         </Grid>
         <Grid item xs={12}>
-          <TextField
+        <InputLabel htmlFor="component-simple">Address line 1</InputLabel>
+          <Input
             required
             id="address1"
-            name="address1"
+            {...register("address1", {minLength: {value:2,message:"Minumum 2"}})}
             label="Address line 1"
             fullWidth
             autoComplete="shipping address-line1"
@@ -108,20 +123,22 @@ function AddressForm() {
                 firstName: address.firstName,
                 lastName: address.lastName,
                 address1: e.target.value,
-                address2: address.address2,
                 city: address.city,
                 state: address.state,
                 zip: address.zip,
-                country: address.country,
               }))
             }
             }
           />
+          {<Typography size='small'  variant="subtitle1" >
+        {errors.address1?.message}
+      </Typography>}
         </Grid>
-        <Grid item xs={12}>
-          <TextField
+        {/* <Grid item xs={12}>
+        <InputLabel htmlFor="component-simple">Address line 2</InputLabel>
+          <Input
             id="address2"
-            name="address2"
+            {...register("address2")}
             label="Address line 2"
             fullWidth
             autoComplete="shipping address-line2"
@@ -141,12 +158,13 @@ function AddressForm() {
             }
             }
           />
-        </Grid>
+          {/* {errors.address1?.message} */}
         <Grid item xs={12} sm={6}>
-          <TextField
-            required
+        <InputLabel htmlFor="component-simple">City</InputLabel>
+          <Input
+          required
             id="city"
-            name="city"
+            {...register("city", {minLength: {value:2,message:"Minumum 2"}})}
             label="City"
             fullWidth
             autoComplete="shipping address-level2"
@@ -157,20 +175,21 @@ function AddressForm() {
                 firstName: address.firstName,
                 lastName: address.lastName,
                 address1: address.address1,
-                address2: address.address2,
                 city: e.target.value,
                 state: address.state,
                 zip: address.zip,
-                country: address.country,
               }))
             }
             }
           />
+          {errors.city?.message}
         </Grid>
         <Grid item xs={12} sm={6}>
-          <TextField
+        <InputLabel htmlFor="component-simple">State/Province/Region</InputLabel>
+          <Input
+          required
             id="state"
-            name="state"
+            {...register("state", { required: "State is required",maxLength: {value:2,message:"2 letters"},minLength: {value:2,message:"2 letters"} })}
             label="State/Province/Region"
             fullWidth
             variant="standard"
@@ -180,21 +199,22 @@ function AddressForm() {
                 firstName: address.firstName,
                 lastName: address.lastName,
                 address1: address.address1,
-                address2: address.address2,
                 city: address.city,
                 state: e.target.value,
                 zip: address.zip,
-                country: address.country,
               }))
             }
             }
           />
+          {errors.state?.message}
         </Grid>
         <Grid item xs={12} sm={6}>
-          <TextField
-            required
+        <InputLabel htmlFor="component-simple">Zip / Postal code</InputLabel>
+          <Input
+          required
             id="zip"
-            name="zip"
+            type='number'
+            {...register("zip", { maxLength: {value:5,message:"Too Long"},minLength: {value:5,message:"Too Short"} })}
             label="Zip / Postal code"
             fullWidth
             autoComplete="shipping postal-code"
@@ -205,55 +225,23 @@ function AddressForm() {
                 firstName: address.firstName,
                 lastName: address.lastName,
                 address1: address.address1,
-                address2: address.address2,
                 city: address.city,
-                state: address.state,
+                state: address.country,
                 zip: e.target.value,
-                country: address.country,
-              }))
-            }
-            }
+              }))}}
           />
+         {<Typography size='small'  variant="subtitle1" >
+        {errors.zip?.message}
+      </Typography>}
         </Grid>
-        <Grid item xs={12} sm={6}>
-          <TextField
-            required
-            id="country"
-            name="country"
-            label="Country"
-            fullWidth
-            autoComplete="shipping country"
-            variant="standard"
-            value={address.country}
-            onChange={(e)=>{
-              dispatch(updateAddress({
-                firstName: address.firstName,
-                lastName: address.lastName,
-                address1: address.address1,
-                address2: address.address2,
-                city: address.city,
-                state: address.state,
-                zip: address.zip,
-                country: e.target.value,
-              }))
-            }
-            }
-          />
-        </Grid>
-        {/* <Grid item xs={12}>
-          <FormControlLabel
-            control={<Checkbox color="secondary" name="saveAddress" value="yes" />}
-            label="Use this address for payment details"
-          />
-        </Grid> */}
-        {/* <button
+        <button
               type="submit"
               fullWidth
               variant="contained"
               sx={{ mt: 3, mb: 2 }}
             >
-              Submit
-        </button> */}
+              Validate Address
+        </button>
       </Grid>
     </React.Fragment>
   );

@@ -6,7 +6,7 @@ class OrdersController < ApplicationController
             cart:params[:cart],
             address:params[:address1],
             city:params[:city],
-            state:params[:state],
+            state:params[:state].upcase,
             zip:params[:zip],
             cardName:params[:cardName],
             expiration:params[:expDate],

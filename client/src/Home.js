@@ -77,11 +77,11 @@ function Home() {
         alt="bicycle"
         loading="lazy"
       />
-      <p>Notes:</p> 
+      {/* <p>Notes:</p>  */}
       {/* <p>1. Site is for demo only. Don't use sensitive addresses or credit card info.</p>
       <p>2. Reset the DB before use.</p>
       <p>3. Sample users: username:"Updog", password:"1234"; username:"KateSkate", password:"1234";</p> */}
-      <p>1. Big thanks to https://99spokes.com/ . They helped me with all of the bike seed data.</p>
+      <p>Big thanks to https://99spokes.com/ . They helped me with all of the bike seed data.</p>
       {/* <button onClick={dbReset}>Reset DB</button> */}
     </div>
   );

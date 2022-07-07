@@ -6,49 +6,54 @@ import FormControlLabel from '@mui/material/FormControlLabel';
 import Checkbox from '@mui/material/Checkbox';
 import { updatePayment, updateKey } from '../reduxComponents/payment/paymentSlice';
 import { useSelector, useDispatch } from 'react-redux';
+import { useForm } from "react-hook-form";
+import Input from '@mui/material/Input';
+import InputLabel from '@mui/material/InputLabel';
 
 function PaymentForm() {
 
   const payment = useSelector(state => state.payment.value)
   const dispatch = useDispatch()   
+  const { register, handleSubmit, formState: {errors} } =useForm()
   // console.log(payment)
 
-  const handleSubmit = (event) => {
-    event.preventDefault();
-    // console.log(event.currentTarget)
-    const data = new FormData(event.currentTarget);
-    dispatch(updatePayment({
-      cardName: data.get('cardName'),
-      expDate: data.get('expDate'),
-      cardNumber: data.get('cardNumber'),
-      cvv: data.get('cvv'),
-    }))
+  // const handleSubmit = (event) => {
+  //   event.preventDefault();
+  //   // console.log(event.currentTarget)
+  //   const data = new FormData(event.currentTarget);
+  //   dispatch(updatePayment({
+  //     cardName: data.get('cardName'),
+  //     expDate: data.get('expDate'),
+  //     cardNumber: data.get('cardNumber'),
+  //     cvv: data.get('cvv'),
+  //   }))
 
-    const handleChange = () => {
-      // console.log("handleChange")
-      // event.preventDefault();
-      // const data = new FormData(event.currentTarget);
-      // // console.log(event.currentTarget)
-      dispatch(updatePayment({
-        cardName: data.get('cardName'),
-        expDate: data.get('expDate'),
-        cardNumber: data.get('cardNumber'),
-        cvv: data.get('cvv'),
-      }))
-    }
+    // const handleChange = () => {
+    //   // console.log("handleChange")
+    //   // event.preventDefault();
+    //   // const data = new FormData(event.currentTarget);
+    //   // // console.log(event.currentTarget)
+    //   dispatch(updatePayment({
+    //     cardName: data.get('cardName'),
+    //     expDate: data.get('expDate'),
+    //     cardNumber: data.get('cardNumber'),
+    //     cvv: data.get('cvv'),
+    //   }))
+    // }
 
-  }
+  // }
   return (
     <React.Fragment>
       <Typography variant="h6" gutterBottom>
         Payment method
       </Typography>
-      <Grid  component="form" onSubmit={handleSubmit} container spacing={3}>
+      <Grid  component="form" onSubmit={handleSubmit((data)=>{console.log(data)})} container spacing={3}>
         <Grid  item xs={12} md={6}>
-          <TextField
+        <InputLabel htmlFor="component-simple">Name on the card</InputLabel>
+          <Input
             required
             id="cardName"
-            name='cardName'
+            {...register("cardName", {minLength: {value:2,message:"Minumum 2"}})}
             label="Name on card"
             fullWidth
             autoComplete="cc-name"
@@ -64,12 +69,15 @@ function PaymentForm() {
             }
             }
           />
+          {errors.cardName?.message}
         </Grid>
         <Grid item xs={12} md={6}>
-          <TextField
+        <InputLabel htmlFor="component-simple">Card number</InputLabel>
+          <Input
             required
             id="cardNumber"
-            name="cardNumber"
+            type='number'
+            {...register("cardNumber", {maxLength: {value:16,message:"16 digits"},minLength: {value:16,message:"16 digits"}})}
             label="Card number"
             fullWidth
             autoComplete="cc-number"
@@ -85,12 +93,15 @@ function PaymentForm() {
             }
             }
           />
+          {errors.cardNumber?.message}
         </Grid>
         <Grid item xs={12} md={6}>
-          <TextField
+        <InputLabel htmlFor="component-simple">Expiration Date</InputLabel>
+          <Input
             required
             id="expDate"
-            name="expDate"
+            type='date'
+            {...register("expDate")}
             label="Expiry date"
             fullWidth
             autoComplete="cc-exp"
@@ -106,12 +117,15 @@ function PaymentForm() {
             }
             }
           />
+          {errors.cvv?.expDate}
         </Grid>
         <Grid item xs={12} md={6}>
-          <TextField
+        <InputLabel htmlFor="component-simple">CVV</InputLabel>
+          <Input
             required
             id="cvv"
-            name="cvv"
+            type='number'
+            {...register("cvv", {maxLength: {value:3,message:"3 digits"},minLength: {value:3,message:"3 digits"}})}
             label="CVV"
             helperText="Last three digits on signature strip"
             fullWidth
@@ -128,7 +142,8 @@ function PaymentForm() {
             }
             }
             
-          />
+            />
+            {errors.cvv?.message}
         </Grid>
         {/* <Grid item xs={12}>
           <FormControlLabel

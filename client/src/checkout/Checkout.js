@@ -17,7 +17,10 @@ import PaymentForm from './PaymentForm';
 import Review from './Review';
 import { useState, useEffect } from "react";
 import { useSelector, useDispatch } from 'react-redux';
-import cartSlice, { updateCart} from '../reduxComponents/cart/cartSlice';
+import { updateCart } from '../reduxComponents/cart/cartSlice';
+import { useForm } from "react-hook-form";
+import { decrement, increment } from "../reduxComponents/counter/counterSlice";
+import { updateErrors } from '../reduxComponents/errors/errorSlice';
 
 function Copyright() {
   return (
@@ -55,19 +58,28 @@ function Checkout() {
   const address = useSelector(state => state.address.value)
   const payment = useSelector(state => state.payment.value)
   const me = useSelector((state) => state.me.value)
+  const step = useSelector((state) => state.counter.value)
+  const problems = useSelector((state) => state.error.value)
   const dispatch = useDispatch() 
   let hash = {}
   hash = {cart:{...cart},...address, ...payment,user_id:me.id}
-  // console.log("hash"+hash)
-
+  // console.log(hash)
+  // console.log(address.zip?.length)
+  // console.log(address.zip?.length==5)
+  // console.log(problems)
+  
   const [activeStep, setActiveStep] = React.useState(0);
+  // // console.log(step)
+  // console.log(problems)
 
   const handleNext = () => {
     setActiveStep(activeStep + 1);
+    dispatch(increment())
   };
 
   const handleBack = () => {
     setActiveStep(activeStep - 1);
+    dispatch(decrement())
   };
   // activeStep === steps.length?console.log('worked'):null
   

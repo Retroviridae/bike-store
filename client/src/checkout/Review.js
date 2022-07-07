@@ -99,7 +99,7 @@ function Review() {
             Shipping
           </Typography>
           <Typography gutterBottom>{address.firstName+" "+address.lastName}</Typography>
-          <Typography gutterBottom>{address.address1+", "+address.state+", "+address.country+", "+address.zip}</Typography>
+          <Typography gutterBottom>{address.address1+", "+address.state+", "+address.zip}</Typography>
         </Grid>
         <Grid item container direction="column" xs={12} sm={6}>
           <Typography variant="h6" gutterBottom sx={{ mt: 2 }}>

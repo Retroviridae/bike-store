@@ -44,7 +44,7 @@ function SignUp() {
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify({username:data.get('username'), password:data.get('password')}),
+      body: JSON.stringify({username:data.get('username'), password:data.get('password'),firstName:data.get('firstName'), lastName:data.get('lastName'),email:data.get('email')}),
     }).then((r) => {
       // setIsLoading(false);
       if (r.ok) {

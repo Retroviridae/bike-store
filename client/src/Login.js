@@ -35,7 +35,7 @@ function Login() {
   let navigate= useNavigate();
   // const me = useSelector((state) => state.me.value)
   const errors = useSelector((state) => state.error.value)
-  console.log(errors)
+  // console.log(errors)
   const dispatch = useDispatch()
   const handleSubmit = (event) => {
     event.preventDefault();

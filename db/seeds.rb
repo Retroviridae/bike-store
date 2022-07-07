@@ -8,11 +8,11 @@
 puts "Seeding"
 puts "Creating users"
 
-u1 = User.create(username:"Updog", password:"1234")
-u2 = User.create(username:"KateSkate", password:"1234")
-u3 = User.create(username:"PapaBear", password:"1234")
-u4 = User.create(username:"ConManSam", password:"1234")
-u5 = User.create(username:"BenKenobi", password:"1234")
+u1 = User.create(username:"Updog", password:"1234",firstName:"John",lastName:"Smith",email:"jsmith@vulpes.com")
+u2 = User.create(username:"KateSkate", password:"1234",firstName:"Kate",lastName:"Hawk",email:"khawk@vulpes.com")
+u3 = User.create(username:"PapaBear", password:"1234",firstName:"Kyle",lastName:"Dake",email:"kdake@vulpes.com")
+u4 = User.create(username:"ConManSam", password:"1234",firstName:"Jordan",lastName:"Burroughs",email:"jburroughs@vulpes.com")
+u5 = User.create(username:"BenKenobi", password:"1234",firstName:"Gable",lastName:"Steveson",email:"gsteveson@vulpes.com")
 
 bikes = [
     {                                                                              

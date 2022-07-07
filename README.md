@@ -7,6 +7,8 @@ https://phase-5-capstone-bike-store.herokuapp.com/
 
 heroku run console
 
+Form Validations: https://react-hook-form.com/get-started/#ReactWebVideoTutorial
+
 Redux docs: https://react-redux.js.org/tutorials/quick-start
 
 https://github.com/learn-co-curriculum/react-rails-project-setup-guide
