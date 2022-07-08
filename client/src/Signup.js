@@ -10,7 +10,7 @@ import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
-import { createTheme, ThemeProvider } from '@mui/material/styles';
+// import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { useNavigate } from "react-router"
 import { useSelector, useDispatch } from 'react-redux';
 import { updateErrors } from './reduxComponents/errors/errorSlice';
@@ -28,7 +28,7 @@ function Copyright(props) {
   );
 }
 
-const theme = createTheme();
+// const theme = createTheme();
 
 function SignUp() {
   let navigate= useNavigate();
@@ -57,7 +57,7 @@ function SignUp() {
 
 
   return (
-    <ThemeProvider theme={theme}>
+    // <ThemeProvider theme={theme}>
       <Container component="main" maxWidth="xs">
         <CssBaseline />
         <Box
@@ -154,7 +154,7 @@ function SignUp() {
         </Box>
         <Copyright sx={{ mt: 5 }} />
       </Container>
-    </ThemeProvider>
+    // </ThemeProvider>
   );
 }
 
