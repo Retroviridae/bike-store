@@ -11,6 +11,8 @@ import FormControl from '@mui/material/FormControl';
 import Input from '@mui/material/Input';
 import InputLabel from '@mui/material/InputLabel';
 import { updateErrors } from '../reduxComponents/errors/errorSlice';
+import { decrement, increment } from "../reduxComponents/counter/counterSlice";
+import Button from '@mui/material/Button';
 
 
 function AddressForm() {
@@ -22,6 +24,10 @@ function AddressForm() {
   const step = useSelector((state) => state.counter.value)
   // console.log(errors)
   // console.log(step)
+  const handleNext = () => {
+    // setActiveStep(activeStep + 1);
+    dispatch(increment())
+  };
 
   // const handleSubmit = (event) => {
   //   event.preventDefault();
@@ -52,7 +58,7 @@ function AddressForm() {
       <Typography variant="h6" gutterBottom>
         Shipping address
       </Typography>
-      <Grid component="form" onSubmit={handleSubmit((data)=>{console.log(data)})} container spacing={3}>
+      <Grid component="form" onSubmit={handleSubmit((data)=>{dispatch(updateAddress(data))})} container spacing={3}>
         <Grid item xs={12} sm={6}>
         <InputLabel htmlFor="component-simple">First Name</InputLabel>
           <Input
@@ -63,18 +69,18 @@ function AddressForm() {
             fullWidth
             autoComplete="given-name"
             variant="standard"
-            value={address.firstName}
-            onChange={(e)=>{
-              dispatch(updateAddress({
-                firstName: e.target.value,
-                lastName: address.lastName,
-                address1: address.address1,
-                city: address.city,
-                state: address.state,
-                zip: address.zip,
-              }))
-            }
-            }
+            // value={address.firstName}
+            // onChange={(e)=>{
+            //   dispatch(updateAddress({
+            //     firstName: e.target.value,
+            //     lastName: address.lastName,
+            //     address1: address.address1,
+            //     city: address.city,
+            //     state: address.state,
+            //     zip: address.zip,
+            //   }))
+            // }
+            // }
           />
           {<Typography size='small'  variant="subtitle1" >
         {errors.firstName?.message}
@@ -90,18 +96,18 @@ function AddressForm() {
             fullWidth
             autoComplete="family-name"
             variant="standard"
-            value={address.lastName}
-            onChange={(e)=>{
-              dispatch(updateAddress({
-                firstName: address.firstName,
-                lastName: e.target.value,
-                address1: address.address1,
-                city: address.city,
-                state: address.state,
-                zip: address.zip,
-              }))
-            }
-            }
+            // value={address.lastName}
+            // onChange={(e)=>{
+            //   dispatch(updateAddress({
+            //     firstName: address.firstName,
+            //     lastName: e.target.value,
+            //     address1: address.address1,
+            //     city: address.city,
+            //     state: address.state,
+            //     zip: address.zip,
+            //   }))
+            // }
+            // }
           />
           {<Typography size='small'  variant="subtitle1" >
         {errors.lastName?.message}
@@ -117,18 +123,18 @@ function AddressForm() {
             fullWidth
             autoComplete="shipping address-line1"
             variant="standard"
-            value={address.address1}
-            onChange={(e)=>{
-              dispatch(updateAddress({
-                firstName: address.firstName,
-                lastName: address.lastName,
-                address1: e.target.value,
-                city: address.city,
-                state: address.state,
-                zip: address.zip,
-              }))
-            }
-            }
+            // value={address.address1}
+            // onChange={(e)=>{
+            //   dispatch(updateAddress({
+            //     firstName: address.firstName,
+            //     lastName: address.lastName,
+            //     address1: e.target.value,
+            //     city: address.city,
+            //     state: address.state,
+            //     zip: address.zip,
+            //   }))
+            // }
+            // }
           />
           {<Typography size='small'  variant="subtitle1" >
         {errors.address1?.message}
@@ -169,18 +175,18 @@ function AddressForm() {
             fullWidth
             autoComplete="shipping address-level2"
             variant="standard"
-            value={address.city}
-            onChange={(e)=>{
-              dispatch(updateAddress({
-                firstName: address.firstName,
-                lastName: address.lastName,
-                address1: address.address1,
-                city: e.target.value,
-                state: address.state,
-                zip: address.zip,
-              }))
-            }
-            }
+            // value={address.city}
+            // onChange={(e)=>{
+            //   dispatch(updateAddress({
+            //     firstName: address.firstName,
+            //     lastName: address.lastName,
+            //     address1: address.address1,
+            //     city: e.target.value,
+            //     state: address.state,
+            //     zip: address.zip,
+            //   }))
+            // }
+            // }
           />
           {errors.city?.message}
         </Grid>
@@ -189,22 +195,22 @@ function AddressForm() {
           <Input
           required
             id="state"
-            {...register("state", { required: "State is required",maxLength: {value:2,message:"2 letters"},minLength: {value:2,message:"2 letters"} })}
+            {...register("state", { maxLength: {value:2,message:"2 letters"},minLength: {value:2,message:"2 letters"} })}
             label="State/Province/Region"
             fullWidth
             variant="standard"
-            value={address.state}
-            onChange={(e)=>{
-              dispatch(updateAddress({
-                firstName: address.firstName,
-                lastName: address.lastName,
-                address1: address.address1,
-                city: address.city,
-                state: e.target.value,
-                zip: address.zip,
-              }))
-            }
-            }
+            // value={address.state}
+            // onChange={(e)=>{
+            //   dispatch(updateAddress({
+            //     firstName: address.firstName,
+            //     lastName: address.lastName,
+            //     address1: address.address1,
+            //     city: address.city,
+            //     state: e.target.value,
+            //     zip: address.zip,
+            //   }))
+            // }
+            // }
           />
           {errors.state?.message}
         </Grid>
@@ -219,29 +225,29 @@ function AddressForm() {
             fullWidth
             autoComplete="shipping postal-code"
             variant="standard"
-            value={address.zip}
-            onChange={(e)=>{
-              dispatch(updateAddress({
-                firstName: address.firstName,
-                lastName: address.lastName,
-                address1: address.address1,
-                city: address.city,
-                state: address.country,
-                zip: e.target.value,
-              }))}}
+            // value={address.zip}
+            // onChange={(e)=>{
+            //   dispatch(updateAddress({
+            //     firstName: address.firstName,
+            //     lastName: address.lastName,
+            //     address1: address.address1,
+            //     city: address.city,
+            //     state: address.country,
+            //     zip: e.target.value,
+            //   }))}}
           />
          {<Typography size='small'  variant="subtitle1" >
         {errors.zip?.message}
       </Typography>}
         </Grid>
-        <button
+        <Button
               type="submit"
               fullWidth
               variant="contained"
               sx={{ mt: 3, mb: 2 }}
             >
               Validate Address
-        </button>
+        </Button>
       </Grid>
     </React.Fragment>
   );

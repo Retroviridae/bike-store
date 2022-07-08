@@ -31,7 +31,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_07_05_204415) do
     t.string "state"
     t.integer "zip"
     t.string "cardName"
-    t.integer "cardNumber"
+    t.string "cardNumber"
     t.integer "cvv"
     t.string "expiration"
     t.hstore "cart"

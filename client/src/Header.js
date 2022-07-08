@@ -1,4 +1,3 @@
-import * as React from 'react';
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
 import Toolbar from '@mui/material/Toolbar';
@@ -15,6 +14,7 @@ import MenuItem from '@mui/material/MenuItem';
 import { useSelector, useDispatch } from 'react-redux';
 import { update } from './reduxComponents/me/meSlice'
 import { useNavigate } from "react-router"
+import React, { useEffect, useState } from "react";
 
 
 const pages = ['Bikes', 'Signup', 'Login'];
@@ -22,8 +22,27 @@ const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
 
 const Header = () => {
   const me = useSelector((state) => state.me.value)
+  const cart = useSelector((state) => state.cart.value)
+  const bikes = useSelector((state) => state.bikes.value)
   const dispatch = useDispatch()
   let navigate= useNavigate();
+  const [total,setTotal]= useState(0)
+
+  useEffect(()=>{
+    // console.log(cart)
+    let sum = 0
+
+    for(const key in cart){
+      // array.push(<p>Bike id:{key}, quantity:{cart[key]} Bike:{bikes[key].model}</p>)
+      // console.log(bikes)
+      // console.log(key)
+      // console.log(bikes[key])
+      sum +=1
+    }
+    // console.log(array)
+    // console.log(display)
+    setTotal(sum)
+  },[cart])
 
   const [anchorElNav, setAnchorElNav] = React.useState(null);
   const [anchorElUser, setAnchorElUser] = React.useState(null);
@@ -155,6 +174,8 @@ const Header = () => {
               >
                 login
               </Button>}
+              {total===0?null
+              :
               <Button
                 key='cart'
                 onClick={handleCloseNavMenu}
@@ -162,7 +183,7 @@ const Header = () => {
                 sx={{ my: 2, color: 'white', display: 'block' }}
               >
                 cart
-              </Button>
+              </Button>}
               {/* <Button
                 key='login'
                 onClick={handleCloseNavMenu}
@@ -221,9 +242,9 @@ const Header = () => {
                   <Typography textAlign="center">profile</Typography>
                 </Button>
 
-                <Button key="checkout" href='/checkout' onClick={handleCloseUserMenu}>
+                {total!==0?<Button key="checkout" href='/checkout' onClick={handleCloseUserMenu}>
                   <Typography textAlign="center">checkout</Typography>
-                </Button>
+                </Button>:null}
 
                 <Button key="logout" onClick={handleLogout}>
                   <Typography textAlign="center">logout</Typography>

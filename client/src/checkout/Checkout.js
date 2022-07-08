@@ -66,11 +66,11 @@ function Checkout() {
   // console.log(hash)
   // console.log(address.zip?.length)
   // console.log(address.zip?.length==5)
-  // console.log(problems)
+  console.log(problems)
+  console.log(!!problems)
   
   const [activeStep, setActiveStep] = React.useState(0);
-  // // console.log(step)
-  // console.log(problems)
+  // console.log(!!problems.errors)
 
   const handleNext = () => {
     setActiveStep(activeStep + 1);
@@ -82,9 +82,13 @@ function Checkout() {
     dispatch(decrement())
   };
   // activeStep === steps.length?console.log('worked'):null
+
+  // useEffect(()=>{
+  //   dispatch(updateErrors([]))
+  // },[])
   
   useEffect(() => {
-    if (activeStep === steps.length){
+    if (step === steps.length){
       // console.log(address)
       // console.log(payment)
       // console.log(cart)
@@ -104,7 +108,7 @@ function Checkout() {
           }
         }));
       } else {
-        r.json().then(data => console.log(data));
+        r.json().then(data => updateErrors(data.errors));
       }
     })
   };
@@ -135,7 +139,7 @@ function Checkout() {
           <Typography component="h1" variant="h4" align="center">
             Checkout
           </Typography>
-          <Stepper activeStep={activeStep} sx={{ pt: 3, pb: 5 }}>
+          <Stepper activeStep={step} sx={{ pt: 3, pb: 5 }}>
             {steps.map((label) => (
               <Step key={label}>
                 <StepLabel>{label}</StepLabel>
@@ -143,32 +147,37 @@ function Checkout() {
             ))}
           </Stepper>
           <React.Fragment>
-            {activeStep === steps.length ? (
+            {step === steps.length ? (
               <React.Fragment>
                 <Typography variant="h5" gutterBottom>
                   Thank you for your order.
                 </Typography>
-                <Typography variant="subtitle1">
-                  Your order number is "INSERT TRANSACTION ID HERE". Check your profile page for information.
+                <Typography variant="subtitle1" gutterBottom>
+                  Check your profile page for more information.
                 </Typography>
+                {/* <Typography variant="h5" gutterBottom>
+                  Thank you for your order.
+                </Typography>
+                <Typography variant="subtitle1">
+                </Typography> */}
               </React.Fragment>
             ) : (
               <React.Fragment>
                 {getStepContent(activeStep)}
                 <Box sx={{ display: 'flex', justifyContent: 'flex-end' }}>
-                  {activeStep !== 0 && (
+                  {step !== 0 && (
                     <Button onClick={handleBack} sx={{ mt: 3, ml: 1 }}>
                       Back
                     </Button>
                   )}
 
-                  <Button
+                  {step==0&&!!address.firstName||step==1&&!!payment.cardName||step==2?<Button
                     variant="contained"
                     onClick={handleNext}
                     sx={{ mt: 3, ml: 1 }}
                   >
-                    {activeStep === steps.length - 1 ? 'Place order' : 'Next'}
-                  </Button>
+                    {step === steps.length - 1 ? 'Place order' : 'Next'}
+                  </Button>:null}
                 </Box>
               </React.Fragment>
             )}

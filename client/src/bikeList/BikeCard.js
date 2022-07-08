@@ -12,7 +12,6 @@ import Typography from '@mui/material/Typography';
 // import Link from '@mui/material/Link';
 // import { red } from '@mui/material/colors';
 import Button from '@mui/material/Button';
-import { useSelector } from 'react-redux'
 // import bikesSlice, { createBike,deleteBike,updateBike } from '../reduxComponents/bikes/bikesSlice'
 // import { addToCart } from '../reduxComponents/cart/cartSlice';
 
@@ -20,6 +19,8 @@ import { useSelector } from 'react-redux'
 // import ShareIcon from '@mui/icons-material/Share';
 // import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 // import MoreVertIcon from '@mui/icons-material/MoreVert';
+import { useSelector, useDispatch } from 'react-redux'
+import { updateCart } from '../reduxComponents/cart/cartSlice';
 
 const ExpandMore = styled((props) => {
   const { expand, ...other } = props;
@@ -35,6 +36,7 @@ const ExpandMore = styled((props) => {
 function BikeCard( {index} ) {
   // const cart = useSelector((state) => state.cart.value)
   const bikes = useSelector((state) => state.bikes.value)
+  const dispatch = useDispatch()
   // const dispatch = useDispatch()
   const [expanded, setExpanded] = React.useState(false);
 
@@ -54,7 +56,7 @@ function BikeCard( {index} ) {
       body: JSON.stringify(bikes[e.target.id]),
     }).then((r) => {
       if (r.ok) {
-        r.json().then(data => console.log(data));
+        r.json().then(data => dispatch(updateCart(data)));
         // dispatch(addToCart(bikes[e.target.id]));
         // r.json().then(data => console.log(data));
       } else {

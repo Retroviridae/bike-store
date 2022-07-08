@@ -7,7 +7,7 @@ class CreateOrders < ActiveRecord::Migration[7.0]
       t.string :state
       t.integer :zip
       t.string :cardName
-      t.integer :cardNumber
+      t.string :cardNumber
       t.integer :cvv
       t.string :expiration
       t.hstore :cart
