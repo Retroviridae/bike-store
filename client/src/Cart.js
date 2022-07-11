@@ -11,6 +11,10 @@ function Cart(){
 
     const [display,setDisplay]= useState([])
     const [total,setTotal]= useState(0)
+    console.log("bikes on cart")
+    console.log(bikes)
+    console.log("cart on cart")
+    console.log(cart)
 
     // let array = []
 
@@ -54,8 +58,7 @@ function Cart(){
           }
           // console.log(array)
           // console.log(display)
-          console.log("bikes on cart")
-          console.log(bikes)
+
           setTotal(sum)
           setDisplay(array)
         }
