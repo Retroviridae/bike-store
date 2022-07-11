@@ -50,10 +50,11 @@ function Cart(){
           // console.log(bikes)
           // console.log(key)
           // console.log(bikes[key])
-          sum = sum + (bikes[key].price*cart[key])
+          // sum = sum + (bikes[key].price*cart[key])
         }
         // console.log(array)
         // console.log(display)
+        console.log(bikes)
         setTotal(sum)
         setDisplay(array)
       },[cart,bikes])
