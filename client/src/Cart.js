@@ -54,6 +54,7 @@ function Cart(){
         }
         // console.log(array)
         // console.log(display)
+        console.log("bikes on cart")
         console.log(bikes)
         setTotal(sum)
         setDisplay(array)
