@@ -33,8 +33,8 @@ const ExpandMore = styled((props) => {
 }));
 
 function CartCard( {index} ) {
-  const cart = useSelector((state) => state.cart.value)
   const bikes = useSelector((state) => state.bikes.value)
+  const cart = useSelector((state) => state.cart.value)
   const dispatch = useDispatch()
   const [expanded, setExpanded] = React.useState(false);
   console.log("bikes on cartcard")

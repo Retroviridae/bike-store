@@ -5,8 +5,8 @@ import React, { useEffect, useState } from "react";
 import CartCard from './CartCard';
 
 function Cart(){
-    const cart = useSelector((state) => state.cart.value)
-    const bikes = useSelector((state) => state.bikes.value)
+  const bikes = useSelector((state) => state.bikes.value)
+  const cart = useSelector((state) => state.cart.value)
     // const dispatch = useDispatch()    
 
     const [display,setDisplay]= useState([])
@@ -43,21 +43,22 @@ function Cart(){
         // console.log(cart)
         let array = []
         let sum = 0
-    
-        for(const key in cart){
-          // array.push(<p>Bike id:{key}, quantity:{cart[key]} Bike:{bikes[key].model}</p>)
-          array.push(key)
-          // console.log(bikes)
-          // console.log(key)
-          // console.log(bikes[key])
-          // sum = sum + (bikes[key].price*cart[key])
+        if (bikes.length>0&&cart.length>0){
+          for(const key in cart){
+            // array.push(<p>Bike id:{key}, quantity:{cart[key]} Bike:{bikes[key].model}</p>)
+            array.push(key)
+            // console.log(bikes)
+            // console.log(key)
+            // console.log(bikes[key])
+            sum = sum + (bikes[key].price*cart[key])
+          }
+          // console.log(array)
+          // console.log(display)
+          console.log("bikes on cart")
+          console.log(bikes)
+          setTotal(sum)
+          setDisplay(array)
         }
-        // console.log(array)
-        // console.log(display)
-        console.log("bikes on cart")
-        console.log(bikes)
-        setTotal(sum)
-        setDisplay(array)
       },[cart,bikes])
 
       // function displayCart(){
