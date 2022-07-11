@@ -47,7 +47,7 @@ function Cart(){
         // console.log(cart)
         let array = []
         let sum = 0
-        if (bikes.length>0&&cart.length>0){
+        if (bikes.length>0){
           for(const key in cart){
             // array.push(<p>Bike id:{key}, quantity:{cart[key]} Bike:{bikes[key].model}</p>)
             array.push(key)
