@@ -225,7 +225,8 @@ function AddressForm() {
             fullWidth
             autoComplete="shipping postal-code"
             variant="standard"
-            // value={address.zip}
+            // {address.zip?}
+            // value={address.zip?}
             // onChange={(e)=>{
             //   dispatch(updateAddress({
             //     firstName: address.firstName,
@@ -246,7 +247,7 @@ function AddressForm() {
               variant="contained"
               sx={{ mt: 3, mb: 2 }}
             >
-              Validate Address
+              Verify Address Details
         </Button>
       </Grid>
     </React.Fragment>

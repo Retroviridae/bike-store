@@ -158,7 +158,7 @@ function PaymentForm() {
               variant="contained"
               sx={{ mt: 3, mb: 2 }}
             >
-              Submit
+              Verify Payment Details
         </Button>
       </Grid>
     </React.Fragment>
