@@ -1,5 +1,5 @@
-import { useState, useEffect } from "react";
-import { Route, Routes,useNavigate,useParams } from "react-router"
+import { useEffect } from "react";
+import { Route, Routes } from "react-router"
 import { ThemeProvider, createTheme } from '@mui/material/styles';
 import CssBaseline from '@mui/material/CssBaseline';
 import { useSelector, useDispatch } from 'react-redux'
@@ -14,6 +14,7 @@ import Profile from "./Profile";
 import Cart from "./Cart";
 import { updateBike } from "./reduxComponents/bikes/bikesSlice";
 import { updateCart } from './reduxComponents/cart/cartSlice';
+import { updateOrder } from "./reduxComponents/orders/orderSlice";
 
 const darkTheme = createTheme({
   palette: {
@@ -24,6 +25,7 @@ const darkTheme = createTheme({
 
 function App() {
   const me = useSelector((state) => state.me.value)
+  const orders = useSelector((state) => state.order.value)
   const dispatch = useDispatch()
   
   useEffect(() => {
@@ -61,6 +63,17 @@ function App() {
           r.json().then(data => console.log(data));
         }
       });;},[])
+
+      useEffect(() => {
+        fetch("/orders").then((r) => {
+          if (r.ok) {
+            r.json().then((orders) => dispatch(updateOrder(orders)));
+          }else {
+            r.json().then(data => console.log(data))
+          }
+        });
+      }, []);
+      // console.log(orders)
   
   
   // if (user) return (

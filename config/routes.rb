@@ -1,5 +1,5 @@
 Rails.application.routes.draw do
-  resources :orders, only: [:create, :destroy]
+  resources :orders, only: [:index, :create, :destroy]
   resources :bikes, only: [:index, :create]
   resources :users, only: [:show, :create]
 

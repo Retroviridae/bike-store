@@ -37,11 +37,6 @@ function CartCard( {index} ) {
   const cart = useSelector((state) => state.cart.value)
   const dispatch = useDispatch()
   const [expanded, setExpanded] = React.useState(false);
-  console.log("bikes on cart")
-  console.log(bikes)
-  console.log("cart on cart")
-  console.log(cart)
-
 
 //   useEffect(()=>{ fetch("/cart")
 //       .then((r) => {

@@ -17,8 +17,6 @@ pageUrl.searchParams.set('q', 'specialized');
 
   const bikes = useSelector((state) => state.bikes.value)
   const dispatch = useDispatch()
-  console.log("bikes on bikeList")
-  console.log(bikes)
     // useEffect(() => {
     //   fetch(pageUrl,{
     //     headers: {'Authorization': 'Basic ' + btoa('flatironbikes:eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhY2NvdW50TmFtZSI6ImZsYXRpcm9uYmlrZXMiLCJ2ZXJzaW9uIjoxLCJpYXQiOjE2NTY0NTk4NzR9.uVwVgUh8coMQGdygtV8wF_F0BGB_TXMavF8QR3mFMIQ')},

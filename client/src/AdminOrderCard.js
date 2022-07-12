@@ -30,7 +30,8 @@ const ExpandMore = styled((props) => {
 
 
 
-function OrderCard( { order }) {
+function AdminOrderCard( { order }) {
+    console.log(order)
 
   // const cart = useSelector((state) => state.cart.value)
   const bikes = useSelector((state) => state.bikes.value)
@@ -134,6 +135,7 @@ function OrderCard( { order }) {
         alt="img link, maybe cut?"
       /> */}
       <CardContent>
+        <Typography>User ID: {order.user.id}:{order.user.username} </Typography>
         <Typography variant="body2" >
         {display.map(bike=>{return(
         <div key={bike.id}>
@@ -148,7 +150,7 @@ function OrderCard( { order }) {
         </Button> */}
         
         {/* <button id={index} onClick={removeFromCart}>Remove from cart</button> */}
-        <Button color="primary" variant="outlined" onClick={handleExpandClick}> {expanded?'hide':'Shipping info'}</Button>
+        <Button color="primary" variant="outlined" onClick={handleExpandClick}> {expanded?'hide':'Order details'}</Button>
       </CardContent>
       <CardActions disableSpacing>
         <IconButton aria-label="add to favorites">
@@ -170,11 +172,11 @@ function OrderCard( { order }) {
         <CardContent>
           <Typography paragraph>{order.address+", "+ order.city+", "+ order.state+", "+ order.zip}</Typography>
           <Typography paragraph>{order.created_at.slice(0,10)}</Typography>
-          <Button id={order.id} variant="contained" color="error" onClick={deleteOrder}>Cancel Order</Button>
+          <Button id={order.id} variant="contained" color="error" >IDK TBH</Button>
         </CardContent>
       </Collapse>
     </Card>
   );
 }
 
-export default OrderCard;
+export default AdminOrderCard;

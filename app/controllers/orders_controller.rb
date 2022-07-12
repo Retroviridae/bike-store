@@ -1,5 +1,16 @@
 class OrdersController < ApplicationController
     skip_before_action :authorize
+
+
+
+
+    def index
+        orders = Order.all
+        render json: orders
+    end
+
+
+
     def create
         # byebug
         order = Order.create!(
