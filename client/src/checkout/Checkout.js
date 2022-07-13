@@ -59,6 +59,7 @@ function Checkout() {
   const payment = useSelector(state => state.payment.value)
   const me = useSelector((state) => state.me.value)
   const step = useSelector((state) => state.counter.value)
+  const stepper = useSelector((state) => state.step.value)
   const problems = useSelector((state) => state.error.value)
   const dispatch = useDispatch() 
   let hash = {}
@@ -66,8 +67,8 @@ function Checkout() {
   // console.log(hash)
   // console.log(address.zip?.length)
   // console.log(address.zip?.length==5)
-  console.log(problems)
-  console.log(!!problems)
+  // console.log(problems)
+  // console.log(!!problems)
   
   const [activeStep, setActiveStep] = React.useState(0);
   // console.log(!!problems.errors)
@@ -104,7 +105,7 @@ function Checkout() {
       if (r.ok) {
         r.json().then(fetch("/cart", { method: "DELETE" }).then((r) => {
           if (r.ok) {
-            r.json().then(data => dispatch(updateCart(data)))
+            dispatch(updateCart({}))
           }
         }));
       } else {
@@ -171,13 +172,25 @@ function Checkout() {
                     </Button>
                   )}
 
-                  {step==0&&!!address.firstName||step==1&&!!payment.cardName||step==2?<Button
+                  {step==0&&stepper==1||step==1&&stepper==2||step==2?<Button
                     variant="contained"
                     onClick={handleNext}
                     sx={{ mt: 3, ml: 1 }}
                   >
                     {step === steps.length - 1 ? 'Place order' : 'Next'}
-                  </Button>:null}
+                  </Button>
+                  :
+                  null
+                  // <Button
+                  //   type="submit"
+                  //   fullWidth
+                  //   color="warning"
+                  //   variant="contained"
+                  //   sx={{ mt: 3, mb: 2 }}
+                  // >
+                  //   Verify Details to Proceed
+                  // </Button>
+                  }
                 </Box>
               </React.Fragment>
             )}

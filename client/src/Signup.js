@@ -142,7 +142,7 @@ function SignUp() {
             >
               Sign Up
             </Button>
-            {errors.map(error=>{return(<Typography fontWeight="600" color="#f44336">{error}</Typography>)})}
+            {errors.map(error=>{return(<Typography key={error} fontWeight="600" color="#f44336">{error}</Typography>)})}
             <Grid container justifyContent="flex-end">
               <Grid item>
                 <Link href="/login" variant="body2">
@@ -152,7 +152,7 @@ function SignUp() {
             </Grid>
           </Box>
         </Box>
-        <Copyright sx={{ mt: 5 }} />
+        {/* <Copyright sx={{ mt: 5 }} /> */}
       </Container>
     // </ThemeProvider>
   );

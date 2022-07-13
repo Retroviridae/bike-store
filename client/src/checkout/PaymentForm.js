@@ -10,6 +10,7 @@ import { useForm } from "react-hook-form";
 import Input from '@mui/material/Input';
 import InputLabel from '@mui/material/InputLabel';
 import Button from '@mui/material/Button';
+import { last } from "../reduxComponents/step/stepSlice"
 
 function PaymentForm() {
 
@@ -48,7 +49,7 @@ function PaymentForm() {
       <Typography variant="h6" gutterBottom>
         Payment method
       </Typography>
-      <Grid  component="form" onSubmit={handleSubmit((data)=>{dispatch(updatePayment(data))})} container spacing={3}>
+      <Grid  component="form" onSubmit={handleSubmit((data)=>{dispatch(last())})} container spacing={3}>
         <Grid  item xs={12} md={6}>
         <InputLabel htmlFor="component-simple">Name on the card</InputLabel>
           <Input
@@ -59,16 +60,16 @@ function PaymentForm() {
             fullWidth
             autoComplete="cc-name"
             variant="standard"
-            // value={payment.cardName}
-            // onChange={(e)=>{
-            //   dispatch(updatePayment({
-            //     cardName: e.target.value,
-            //     expDate: payment.expDate,
-            //     cardNumber: payment.cardNumber,
-            //     cvv: payment.cvv,
-            //   }))
-            // }
-            // }
+            value={payment.cardName}
+            onChange={(e)=>{
+              dispatch(updatePayment({
+                cardName: e.target.value,
+                expDate: payment.expDate,
+                cardNumber: payment.cardNumber,
+                cvv: payment.cvv,
+              }))
+            }
+            }
           />
           {errors.cardName?.message}
         </Grid>
@@ -83,16 +84,16 @@ function PaymentForm() {
             fullWidth
             autoComplete="cc-number"
             variant="standard"
-            // value={payment.cardNumber}
-            // onChange={(e)=>{
-            //   dispatch(updatePayment({
-            //     cardName: payment.cardName,
-            //     expDate: payment.expDate,
-            //     cardNumber: e.target.value,
-            //     cvv: payment.cvv,
-            //   }))
-            // }
-            // }
+            value={payment.cardNumber}
+            onChange={(e)=>{
+              dispatch(updatePayment({
+                cardName: payment.cardName,
+                expDate: payment.expDate,
+                cardNumber: e.target.value,
+                cvv: payment.cvv,
+              }))
+            }
+            }
           />
           {errors.cardNumber?.message}
         </Grid>
@@ -107,16 +108,16 @@ function PaymentForm() {
             fullWidth
             autoComplete="cc-exp"
             variant="standard"
-            // value={payment.expDate}
-            // onChange={(e)=>{
-            //   dispatch(updatePayment({
-            //     cardName: payment.cardName,
-            //     expDate: e.target.value,
-            //     cardNumber: payment.cardNumber,
-            //     cvv: payment.cvv,
-            //   }))
-            // }
-            // }
+            value={payment.expDate}
+            onChange={(e)=>{
+              dispatch(updatePayment({
+                cardName: payment.cardName,
+                expDate: e.target.value,
+                cardNumber: payment.cardNumber,
+                cvv: payment.cvv,
+              }))
+            }
+            }
           />
           {errors.cvv?.expDate}
         </Grid>
@@ -132,16 +133,16 @@ function PaymentForm() {
             fullWidth
             autoComplete="cc-csc"
             variant="standard"
-            // value={payment.cvv}
-            // onChange={(e)=>{
-            //   dispatch(updatePayment({
-            //     cardName: payment.cardName,
-            //     expDate: payment.expDate,
-            //     cardNumber: payment.cardNumber,
-            //     cvv: e.target.value,
-            //   }))
-            // }
-            // }
+            value={payment.cvv}
+            onChange={(e)=>{
+              dispatch(updatePayment({
+                cardName: payment.cardName,
+                expDate: payment.expDate,
+                cardNumber: payment.cardNumber,
+                cvv: e.target.value,
+              }))
+            }
+            }
             
             />
             {errors.cvv?.message}

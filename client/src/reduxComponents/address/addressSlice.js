@@ -3,7 +3,14 @@ import { createSlice } from '@reduxjs/toolkit'
 export const addressSlice = createSlice({
   name: 'address',
   initialState: {
-    value: {},
+    value: {
+      firstName:"",
+      lastName:"",
+      address1:"",
+      city:"",
+      state:"",
+      zip:""
+    },
   },
   reducers: {
 

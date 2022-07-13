@@ -38,6 +38,7 @@ function OrderCard( { order }) {
   const [display,setDisplay] = useState([])
   const [total,setTotal] = useState(0)
   const dispatch = useDispatch()
+  // console.log(display)
   const [expanded, setExpanded] = React.useState(false);
 
   useEffect(()=>{
@@ -136,18 +137,10 @@ function OrderCard( { order }) {
       <CardContent>
         <Typography variant="body2" >
         {display.map(bike=>{return(
-        <div key={bike.id}>
-          <Button color="primary"   href={bikes[bike].url}>{order.cart[bike]+"x: "+bikes[bike].model}</Button>
-        </div>)})} 
+          <Button key={bike} color="primary"   href={bikes[bike].url}>{order.cart[bike]+"x: "+bikes[bike].model}</Button>
+        )})} 
         </Typography>
-        {/* <Button id={index} onClick={addToCart} size="small" variant="outlined" color="success" >
-        +
-        </Button>
-        <Button id={index} onClick={removeFromCart} size="small" variant="outlined" color="warning" >
-        -
-        </Button> */}
         
-        {/* <button id={index} onClick={removeFromCart}>Remove from cart</button> */}
         <Button color="primary" variant="outlined" onClick={handleExpandClick}> {expanded?'hide':'Shipping info'}</Button>
       </CardContent>
       <CardActions disableSpacing>

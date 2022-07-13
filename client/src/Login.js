@@ -135,7 +135,7 @@ function Login() {
             >
               Sign In
             </Button>
-            {errors.map(error=>{return(<Typography fontWeight="600" color="red">{error}</Typography>)})}
+            {errors.map(error=>{return(<Typography key={error} fontWeight="600" color="red">{error}</Typography>)})}
             <Grid container>
               {/* <Grid item xs>
                 <Link href="#" variant="body2">

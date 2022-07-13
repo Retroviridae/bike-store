@@ -7,6 +7,7 @@ import addressReducer from './address/addressSlice'
 import paymentReducer from './payment/paymentSlice'
 import errorReducer from './errors/errorSlice'
 import orderReducer from './orders/orderSlice'
+import stepReducer from './step/stepSlice'
 
 export default configureStore({
   reducer: {
@@ -17,6 +18,7 @@ export default configureStore({
     address: addressReducer,
     payment: paymentReducer,
     error: errorReducer,
-    order: orderReducer
+    order: orderReducer,
+    step: stepReducer
   },
 })

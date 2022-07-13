@@ -3,7 +3,12 @@ import { createSlice } from '@reduxjs/toolkit'
 export const paymentSlice = createSlice({
   name: 'payment',
   initialState: {
-    value: {},
+    value: {
+      cardName:"",
+      cardNumber:"",
+      expDate:"",
+      cvv:""
+    },
   },
   reducers: {
 

@@ -1,18 +1,20 @@
 import * as React from 'react';
 import Grid from '@mui/material/Grid';
 import Typography from '@mui/material/Typography';
-import TextField from '@mui/material/TextField';
-import FormControlLabel from '@mui/material/FormControlLabel';
-import Checkbox from '@mui/material/Checkbox';
+// import TextField from '@mui/material/TextField';
+// import FormControlLabel from '@mui/material/FormControlLabel';
+// import Checkbox from '@mui/material/Checkbox';
 import { updateAddress } from '../reduxComponents/address/addressSlice';
 import { useSelector, useDispatch } from 'react-redux';
 import { useForm } from "react-hook-form";
-import FormControl from '@mui/material/FormControl';
+// import FormControl from '@mui/material/FormControl';
 import Input from '@mui/material/Input';
 import InputLabel from '@mui/material/InputLabel';
-import { updateErrors } from '../reduxComponents/errors/errorSlice';
-import { decrement, increment } from "../reduxComponents/counter/counterSlice";
+// import { updateErrors } from '../reduxComponents/errors/errorSlice';
+// import { decrement, increment } from "../reduxComponents/counter/counterSlice";
 import Button from '@mui/material/Button';
+import { forward } from "../reduxComponents/step/stepSlice"
+import { useState, useEffect, useRef } from "react";
 
 
 function AddressForm() {
@@ -21,44 +23,28 @@ function AddressForm() {
   const dispatch = useDispatch()    
   const { register, handleSubmit, formState: {errors} } =useForm()
   const problems = useSelector((state) => state.error.value)
-  const step = useSelector((state) => state.counter.value)
+  const step = useSelector((state) => state.step.value)
+  const formRef = useRef(null)
   // console.log(errors)
   // console.log(step)
   const handleNext = () => {
     // setActiveStep(activeStep + 1);
-    dispatch(increment())
+    dispatch(forward())
   };
 
-  // const handleSubmit = (event) => {
-  //   event.preventDefault();
-  //   const data = new FormData(event.currentTarget);
-  //   dispatch(updateAddress({
-  //     firstName: data.get('firstName'),
-  //     lastName: data.get('lastName'),
-  //     address1: data.get('address1'),
-  //     address2: data.get('address2'),
-  //     city: data.get('city'),
-  //     state: data.get('state'),
-  //     zip: data.get('zip'),
-  //     country: data.get('country'),
-  //   }))
-    // console.log({
-    //   firstName: data.get('firstName'),
-    //   lastName: data.get('lastName'),
-    //   address1: data.get('address1'),
-    //   address2: data.get('address2'),
-    //   city: data.get('city'),
-    //   state: data.get('state'),
-    //   zip: data.get('zip'),
-    //   country: data.get('country'),
-    // })
-  // }
+  // const handleKeyDown = (e) => {
+  //   console.log(formRef.current)
+  //   // formRef.current.submit()
+  //   // handleSubmit((data)=>{console.log(data)})
+  // };
+
+
   return (
     <React.Fragment>
       <Typography variant="h6" gutterBottom>
         Shipping address
       </Typography>
-      <Grid component="form" onSubmit={handleSubmit((data)=>{dispatch(updateAddress(data))})} container spacing={3}>
+      <Grid component="form" onSubmit={handleSubmit((data)=>{dispatch(forward())})} container spacing={3}>
         <Grid item xs={12} sm={6}>
         <InputLabel htmlFor="component-simple">First Name</InputLabel>
           <Input
@@ -69,18 +55,18 @@ function AddressForm() {
             fullWidth
             autoComplete="given-name"
             variant="standard"
-            // value={address.firstName}
-            // onChange={(e)=>{
-            //   dispatch(updateAddress({
-            //     firstName: e.target.value,
-            //     lastName: address.lastName,
-            //     address1: address.address1,
-            //     city: address.city,
-            //     state: address.state,
-            //     zip: address.zip,
-            //   }))
-            // }
-            // }
+            value={address.firstName}
+            onChange={(e)=>{
+              dispatch(updateAddress({
+                firstName: e.target.value,
+                lastName: address.lastName,
+                address1: address.address1,
+                city: address.city,
+                state: address.state,
+                zip: address.zip,
+              }))
+            }
+            }
           />
           {<Typography size='small'  variant="subtitle1" >
         {errors.firstName?.message}
@@ -96,18 +82,18 @@ function AddressForm() {
             fullWidth
             autoComplete="family-name"
             variant="standard"
-            // value={address.lastName}
-            // onChange={(e)=>{
-            //   dispatch(updateAddress({
-            //     firstName: address.firstName,
-            //     lastName: e.target.value,
-            //     address1: address.address1,
-            //     city: address.city,
-            //     state: address.state,
-            //     zip: address.zip,
-            //   }))
-            // }
-            // }
+            value={address.lastName}
+            onChange={(e)=>{
+              dispatch(updateAddress({
+                firstName: address.firstName,
+                lastName: e.target.value,
+                address1: address.address1,
+                city: address.city,
+                state: address.state,
+                zip: address.zip,
+              }))
+            }
+            }
           />
           {<Typography size='small'  variant="subtitle1" >
         {errors.lastName?.message}
@@ -123,18 +109,18 @@ function AddressForm() {
             fullWidth
             autoComplete="shipping address-line1"
             variant="standard"
-            // value={address.address1}
-            // onChange={(e)=>{
-            //   dispatch(updateAddress({
-            //     firstName: address.firstName,
-            //     lastName: address.lastName,
-            //     address1: e.target.value,
-            //     city: address.city,
-            //     state: address.state,
-            //     zip: address.zip,
-            //   }))
-            // }
-            // }
+            value={address.address1}
+            onChange={(e)=>{
+              dispatch(updateAddress({
+                firstName: address.firstName,
+                lastName: address.lastName,
+                address1: e.target.value,
+                city: address.city,
+                state: address.state,
+                zip: address.zip,
+              }))
+            }
+            }
           />
           {<Typography size='small'  variant="subtitle1" >
         {errors.address1?.message}
@@ -175,18 +161,18 @@ function AddressForm() {
             fullWidth
             autoComplete="shipping address-level2"
             variant="standard"
-            // value={address.city}
-            // onChange={(e)=>{
-            //   dispatch(updateAddress({
-            //     firstName: address.firstName,
-            //     lastName: address.lastName,
-            //     address1: address.address1,
-            //     city: e.target.value,
-            //     state: address.state,
-            //     zip: address.zip,
-            //   }))
-            // }
-            // }
+            value={address.city}
+            onChange={(e)=>{
+              dispatch(updateAddress({
+                firstName: address.firstName,
+                lastName: address.lastName,
+                address1: address.address1,
+                city: e.target.value,
+                state: address.state,
+                zip: address.zip,
+              }))
+            }
+            }
           />
           {errors.city?.message}
         </Grid>
@@ -199,18 +185,18 @@ function AddressForm() {
             label="State/Province/Region"
             fullWidth
             variant="standard"
-            // value={address.state}
-            // onChange={(e)=>{
-            //   dispatch(updateAddress({
-            //     firstName: address.firstName,
-            //     lastName: address.lastName,
-            //     address1: address.address1,
-            //     city: address.city,
-            //     state: e.target.value,
-            //     zip: address.zip,
-            //   }))
-            // }
-            // }
+            value={address.state}
+            onChange={(e)=>{
+              dispatch(updateAddress({
+                firstName: address.firstName,
+                lastName: address.lastName,
+                address1: address.address1,
+                city: address.city,
+                state: e.target.value,
+                zip: address.zip,
+              }))
+            }
+            }
           />
           {errors.state?.message}
         </Grid>
@@ -225,17 +211,16 @@ function AddressForm() {
             fullWidth
             autoComplete="shipping postal-code"
             variant="standard"
-            // {address.zip?}
-            // value={address.zip?}
-            // onChange={(e)=>{
-            //   dispatch(updateAddress({
-            //     firstName: address.firstName,
-            //     lastName: address.lastName,
-            //     address1: address.address1,
-            //     city: address.city,
-            //     state: address.country,
-            //     zip: e.target.value,
-            //   }))}}
+            value={address.zip}
+            onChange={(e)=>{
+              dispatch(updateAddress({
+                firstName: address.firstName,
+                lastName: address.lastName,
+                address1: address.address1,
+                city: address.city,
+                state: address.state,
+                zip: e.target.value,
+              }))}}
           />
          {<Typography size='small'  variant="subtitle1" >
         {errors.zip?.message}
@@ -245,6 +230,7 @@ function AddressForm() {
               type="submit"
               fullWidth
               variant="contained"
+              // onClick={()=>console.log('click')}
               sx={{ mt: 3, mb: 2 }}
             >
               Verify Address Details

@@ -76,7 +76,7 @@ function Cart(){
     return (
         <div>
             {total>0?<p>Total:${total.toLocaleString("en-US")}</p>:"Cart Empty"}
-            {display.map(e=>{return(<CartCard index={e} />)})}
+            {display.map(e=>{return(<CartCard key={e} index={e} />)})}
         </div>
     )
 }
