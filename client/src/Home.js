@@ -27,7 +27,7 @@ function Home() {
       <p>3. Sample users: username:"Updog", password:"1234"; username:"KateSkate", password:"1234";</p> */}
       <p>Big thanks to https://99spokes.com/ . They helped me with all of the bike seed data.</p>
       {/* {me.id==1?orders.map(order=><OrderCard key={order.id} order={order}/>):null} */}
-      {me.id==1?orders.map(order=><AdminOrderCard key={order.id} order={order}/>):null}
+      {/* {me.id==1?orders.map(order=><AdminOrderCard key={order.id} order={order}/>):null} */}
       {/* <button onClick={dbReset}>Reset DB</button> */}
     </div>
   );
